@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Website.Models;
 
-public partial class Task
+public partial class TaskModel
 {
     public int Id { get; set; }
 
