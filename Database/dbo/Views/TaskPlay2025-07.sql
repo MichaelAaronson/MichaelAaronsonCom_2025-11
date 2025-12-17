@@ -1,10 +1,10 @@
 ﻿CREATE VIEW dbo.[TaskPlay2025-07]
 AS
-SELECT TOP (100) PERCENT dbo.Project.Title AS ProjectTitle, dbo.Task.StartDate, dbo.Task.Title
+SELECT TOP (100) PERCENT dbo.Project.Title AS ProjectTitle, dbo.Step.StartDate, dbo.Step.Title
 FROM  dbo.Project INNER JOIN
-         dbo.Task ON dbo.Project.Id = dbo.Task.ProjectId
+         dbo.Step ON dbo.Project.Id = dbo.Step.ProjectId
 WHERE (dbo.Project.Title = N'Computer')
-ORDER BY ProjectTitle, dbo.Task.StartDate
+ORDER BY ProjectTitle, dbo.Step.StartDate
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]

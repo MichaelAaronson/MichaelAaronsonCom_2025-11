@@ -15,7 +15,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<WebsiteContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("WebsiteContext") ?? throw new InvalidOperationException("Connection string 'WebsiteContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("WebsiteConnection") ?? throw new InvalidOperationException("Connection string 'WebsiteContext' not found.")));
 
 var app = builder.Build();
 

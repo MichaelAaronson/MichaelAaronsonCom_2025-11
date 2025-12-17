@@ -1,7 +1,7 @@
 ﻿CREATE VIEW dbo.View_1
 AS
 SELECT Id
-FROM  dbo.Task AS Task_1
+FROM  dbo.Step AS Task_1
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]

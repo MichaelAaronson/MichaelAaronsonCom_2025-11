@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Task] (
+﻿CREATE TABLE [dbo].Step (
     [Id]         INT            IDENTITY (1, 1) NOT NULL,
     [Priority]   INT            NOT NULL,
     [StartDate]  DATE           NOT NULL,
