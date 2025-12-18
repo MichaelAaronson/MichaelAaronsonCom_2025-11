@@ -77,7 +77,8 @@
     <Build Include="dbo\Views\TaskPlay2025-07.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DatabaseDevel.publish.xml" />
+    <None Include="DEVEL_Database.publish.xml" />
+    <None Include="PROD_Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
