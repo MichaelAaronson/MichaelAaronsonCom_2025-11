@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="wwwroot\Files\Faces\" />
   </ItemGroup>
 
 </Project>
