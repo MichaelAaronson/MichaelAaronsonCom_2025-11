@@ -75,6 +75,7 @@
     <Build Include="dbo\Views\View_1.sql" />
     <Build Include="dbo\Views\View_2.sql" />
     <Build Include="dbo\Views\TaskPlay2025-07.sql" />
+    <Build Include="dbo\Tables\Person.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DEVEL_Database.publish.xml" />
