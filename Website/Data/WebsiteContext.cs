@@ -15,5 +15,6 @@ namespace Website.Data
         }
 
         public DbSet<Website.Models.PlayNumber> PlayNumber { get; set; } = default!;
+        public DbSet<Website.Models.Person> Person { get; set; } = default!;
     }
 }

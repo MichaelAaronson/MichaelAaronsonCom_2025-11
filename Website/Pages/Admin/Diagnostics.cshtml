@@ -1,0 +1,41 @@
+﻿@page
+@model Website.Pages.Admin.DiagnosticsModel
+@{
+    ViewData["Title"] = "Diagnostics";
+}
+<h1>Diagnostics</h1>
+
+<table class="table">
+    <tr>
+        <th>Item</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Environment Name</td>
+        <td>@Model.EnvironmentName</td>
+    </tr>
+    <tr>
+        <td>ASPNETCORE_ENVIRONMENT</td>
+        <td>@Model.AspNetCoreEnvironment</td>
+    </tr>
+    <tr>
+        <td>Machine Name</td>
+        <td>@Model.MachineName</td>
+    </tr>
+    <tr>
+        <td>Content Root Path</td>
+        <td>@Model.ContentRootPath</td>
+    </tr>
+    <tr>
+        <td>Web Root Path</td>
+        <td>@Model.WebRootPath</td>
+    </tr>
+    <tr>
+        <td>Content DB Server</td>
+        <td>@Model.ContentConnectionServer</td>
+    </tr>
+    <tr>
+        <td>Server Time</td>
+        <td>@Model.ServerTime</td>
+    </tr>
+</table>
