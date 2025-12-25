@@ -56,6 +56,12 @@
     </dl>
 </div>
 <div>
+    @if (!string.IsNullOrEmpty(Model.Person.ImageFilename))
+    {
+        <img src="~/images/Contacts/@Model.Person.ImageFilename" alt="Person Image" />
+    }
+</div>
+<div>
     <a asp-page="./Edit" asp-route-id="@Model.Person.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

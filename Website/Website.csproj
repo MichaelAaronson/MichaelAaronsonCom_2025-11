@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\WebsiteDbContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Pages\site.css" />
   </ItemGroup>
 

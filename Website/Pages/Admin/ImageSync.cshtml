@@ -1,0 +1,72 @@
+﻿@page
+@model Website.Pages.Admin.ImageSyncModel
+@{
+    ViewData["Title"] = "ImageSync";
+}
+
+<h1>Contact Image Sync Status</h1>
+
+<p>Comparing <code>wwwroot/Images/Contacts</code> with Person table.</p>
+
+<h2>Orphaned Images (@Model.OrphanedImages.Count)</h2>
+<p>Images in folder with no matching Person record:</p>
+@if (Model.OrphanedImages.Any())
+{
+    <table class="table table-sm">
+        <thead><tr><th>Filename</th></tr></thead>
+        <tbody>
+            @foreach (var filename in Model.OrphanedImages)
+            {
+                <tr><td>@filename</td></tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p><em>None</em></p>
+}
+
+<h2>Missing Images (@Model.MissingImages.Count)</h2>
+<p>Person records where image file is missing:</p>
+@if (Model.MissingImages.Any())
+{
+    <table class="table table-sm">
+        <thead><tr><th>Person</th><th>Expected Filename</th></tr></thead>
+        <tbody>
+            @foreach (var item in Model.MissingImages)
+            {
+                <tr>
+                    <td>@item.PersonName</td>
+                    <td>@item.Filename</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p><em>None</em></p>
+}
+
+<h2>Matched (@Model.Matched.Count)</h2>
+<p>Person records with matching image files:</p>
+@if (Model.Matched.Any())
+{
+    <table class="table table-sm">
+        <thead><tr><th>Person</th><th>Filename</th></tr></thead>
+        <tbody>
+            @foreach (var item in Model.Matched)
+            {
+                <tr>
+                    <td>@item.PersonName</td>
+                    <td>@item.Filename</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p><em>None</em></p>
+}
