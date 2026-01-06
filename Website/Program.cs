@@ -17,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Admin");
+    options.Conventions.AuthorizeFolder("/Private");
+
 });
 builder.Services.AddDbContext<WebsiteContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebsiteConnection") ?? throw new InvalidOperationException("Connection string 'WebsiteContext' not found.")));
