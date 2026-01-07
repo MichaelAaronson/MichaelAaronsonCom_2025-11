@@ -1,0 +1,65 @@
+﻿@* @page
+@model Website.Pages.Private.Persons.ImageManagerModel
+@{
+} *@
+@page
+@model Website.Pages.Private.Persons.ImageManagerModel
+
+@{
+    ViewData["Title"] = "Image Manager";
+}
+
+<h1>Image Manager</h1>
+<p>Images folder: /Images/Persons/</p>
+
+<h2>Upload Image</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="imageFile" class="form-label">Select image file</label>
+        <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" style="max-width: 400px;" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-info mt-3" style="max-width: 400px;">@Model.Message</div>
+}
+
+<h2 class="mt-4">Current Images (@Model.Images.Count)</h2>
+
+@if (Model.Images.Count == 0)
+{
+    <p>No images found.</p>
+}
+else
+{
+    <table class="table" style="max-width: 800px;">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Size</th>
+                <th>Preview</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var image in Model.Images)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">@image.Filename</td>
+                    <td style="vertical-align: middle;">@image.SizeKb KB</td>
+                    <td>
+                        <img src="~/Images/Persons/@image.Filename" alt="@image.Filename" style="max-height: 100px;" />
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <form method="post" asp-page-handler="Delete" style="display:inline;">
+                            <input type="hidden" name="filename" value="@image.Filename" />
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete @image.Filename?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
