@@ -13,6 +13,14 @@
     <table class="table">
         <tr>
             <td>
+                <div>
+                    @if (!string.IsNullOrEmpty(Model.Person.ImageFilename))
+                    {
+                        <img width="200" src="~/Images/Contacts/@Model.Person.ImageFilename" alt="Person Image" />
+                    }
+                </div>
+            </td>
+            <td>
                 <dl class="row">
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Person.FirstName)
@@ -53,20 +61,12 @@
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Person.ImageFilename)
                     </dt>
-                    <dd class="col-sm-10">
+                    <dd class="col-sm-10" >
                         @Html.DisplayFor(model => model.Person.ImageFilename)
                     </dd>
                 </dl>
             </td>
-            <td>
-                <div>
-                    @if (!string.IsNullOrEmpty(Model.Person.ImageFilename))
-                    {
-                        <img src="~/Images/Contacts/@Model.Person.ImageFilename" alt="Person Image" />
-                    }
-                </div>
 
-            </td>
         </tr>
 
     </table>
