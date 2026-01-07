@@ -6,4 +6,10 @@
 
 <div    >
     <p class="text-center">Welcome to <a href="http://MichaelAaronson.com">MichaelAaronson.com</a></p>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <ul>
+            <li><a asp-page="/Private/Persons/Index">Persons</a></li>
+        </ul>
+    }
 </div>
