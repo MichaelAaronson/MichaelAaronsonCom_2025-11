@@ -40,7 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Private\Groups\" />
     <Folder Include="Pages\Public\" />
     <Folder Include="Services\" />
   </ItemGroup>
