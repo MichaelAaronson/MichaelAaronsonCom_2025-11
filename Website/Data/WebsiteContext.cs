@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Website.Models;
 
 namespace Website.Data
@@ -43,13 +39,13 @@ namespace Website.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure Group table
-            modelBuilder.Entity<Group>(entity =>
-            {
-                entity.ToTable("Group");
-                entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
-                entity.Property(e => e.Description).HasMaxLength(500);
-            });
+            //// Configure Group table
+            //modelBuilder.Entity<Group>(entity =>
+            //{
+            //    entity.ToTable("Group");
+            //    entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
+            //    entity.Property(e => e.Description).HasMaxLength(500);
+            //});
         }
 
 
