@@ -23,55 +23,67 @@ namespace Website.Pages.Persons
         [BindProperty]
         public Person Person { get; set; } = default!;
 
+        [BindProperty]
+        public List<int> SelectedGroupIds { get; set; } = new();
+
+        public List<Group> AllGroups { get; set; } = new();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var person =  await _context.Person.FirstOrDefaultAsync(m => m.Id == id);
+            var person = await _context.Person
+                .Include(p => p.PersonGroups)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (person == null)
-            {
                 return NotFound();
-            }
+
             Person = person;
+            AllGroups = await _context.Group.OrderBy(g => g.Name).ToListAsync();
+            SelectedGroupIds = person.PersonGroups.Select(pg => pg.GroupId).ToList();
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                AllGroups = await _context.Group.OrderBy(g => g.Name).ToListAsync();
                 return Page();
             }
 
-            _context.Attach(Person).State = EntityState.Modified;
+            var personToUpdate = await _context.Person
+                .Include(p => p.PersonGroups)
+                .FirstOrDefaultAsync(p => p.Id == Person.Id);
 
-            try
+            if (personToUpdate == null)
+                return NotFound();
+
+            // Update scalar properties
+            personToUpdate.FirstName = Person.FirstName;
+            personToUpdate.LastNme = Person.LastNme;
+            personToUpdate.Company = Person.Company;
+            personToUpdate.Email = Person.Email;
+            personToUpdate.Phone = Person.Phone;
+            personToUpdate.Notes = Person.Notes;
+            personToUpdate.ImageFilename = Person.ImageFilename;
+
+            // Update group memberships
+            personToUpdate.PersonGroups.Clear();
+            foreach (var groupId in SelectedGroupIds)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonExists(Person.Id))
+                personToUpdate.PersonGroups.Add(new PersonGroup
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    PersonId = Person.Id,
+                    GroupId = groupId
+                });
             }
 
+            await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
-        }
-
-        private bool PersonExists(int id)
-        {
-            return _context.Person.Any(e => e.Id == id);
         }
     }
 }
