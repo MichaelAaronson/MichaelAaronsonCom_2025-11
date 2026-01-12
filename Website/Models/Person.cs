@@ -20,4 +20,7 @@ public partial class Person
     public string? Notes { get; set; }
 
     public string? ImageFilename { get; set; }
+
+    public ICollection<PersonGroup> PersonGroups { get; set; } = new List<PersonGroup>();
+
 }
