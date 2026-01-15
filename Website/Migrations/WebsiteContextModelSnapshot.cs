@@ -64,7 +64,7 @@ namespace Website.Migrations
                     b.Property<string>("ImageFilename")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastNme")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
@@ -85,6 +85,14 @@ namespace Website.Migrations
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Role")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("PersonId", "GroupId");
 

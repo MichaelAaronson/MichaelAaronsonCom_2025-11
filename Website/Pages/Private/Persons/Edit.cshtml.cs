@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Website.Data;
 using Website.Models;
 
 namespace Website.Pages.Persons
@@ -64,7 +58,7 @@ namespace Website.Pages.Persons
 
             // Update scalar properties
             personToUpdate.FirstName = Person.FirstName;
-            personToUpdate.LastNme = Person.LastNme;
+            personToUpdate.LastName = Person.LastName;
             personToUpdate.Company = Person.Company;
             personToUpdate.Email = Person.Email;
             personToUpdate.Phone = Person.Phone;

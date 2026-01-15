@@ -67,7 +67,7 @@ namespace Website.Migrations
                     b.Property<string>("ImageFilename")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastNme")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")

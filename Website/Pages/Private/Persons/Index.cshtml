@@ -7,6 +7,20 @@
 
 <h1>Index</h1>
 
+<form method="get" class="mb-3">
+    <div class="row align-items-end">
+        <div class="col-auto">
+            <label for="GroupId" class="form-label">Filter by Group</label>
+            <select asp-for="GroupId" asp-items="Model.GroupOptions" class="form-select">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
 <p>
     <a asp-page ="ImageManager">Image Manager</a>
 </p>
@@ -21,7 +35,7 @@
                 @Html.DisplayNameFor(model => model.Person[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Person[0].LastNme)
+                @Html.DisplayNameFor(model => model.Person[0].LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Person[0].Company)
@@ -48,7 +62,7 @@
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastNme)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Company)

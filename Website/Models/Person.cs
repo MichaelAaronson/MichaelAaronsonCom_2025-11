@@ -9,7 +9,7 @@ public partial class Person
 
     public string FirstName { get; set; } = null!;
 
-    public string? LastNme { get; set; }
+    public string? LastName { get; set; }
 
     public string? Company { get; set; }
 

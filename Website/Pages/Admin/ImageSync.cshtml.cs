@@ -49,7 +49,7 @@ namespace Website.Pages.Admin
                     Matched.Add(new MatchedImage
                     {
                         Filename = person.ImageFilename!,
-                        PersonName = $"{person.FirstName} {person.LastNme}",
+                        PersonName = $"{person.FirstName} {person.LastName}",
                         Id = person.Id
                     });
                     usedFilenames.Add(person.ImageFilename!);
@@ -59,7 +59,7 @@ namespace Website.Pages.Admin
                     MissingImages.Add(new MissingImage
                     {
                         Filename = person.ImageFilename!,
-                        PersonName = $"{person.FirstName} {person.LastNme}",
+                        PersonName = $"{person.FirstName} {person.LastName}",
                         Id = person.Id // Was PersonId
                     });
                 }

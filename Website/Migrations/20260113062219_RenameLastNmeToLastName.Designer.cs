@@ -11,8 +11,8 @@ using Website.Data;
 namespace Website.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    [Migration("20260111051723_InitialBaseline")]
-    partial class InitialBaseline
+    [Migration("20260113062219_RenameLastNmeToLastName")]
+    partial class RenameLastNmeToLastName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace Website.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Group", (string)null);
+                    b.ToTable("Group");
                 });
 
             modelBuilder.Entity("Website.Models.Person", b =>
@@ -88,6 +88,14 @@ namespace Website.Migrations
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Role")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("PersonId", "GroupId");
 
