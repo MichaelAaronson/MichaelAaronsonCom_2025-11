@@ -1,0 +1,87 @@
+﻿@page
+@model Website.Pages.Private.Persons.GroupMembersModel
+
+@{
+    ViewData["Title"] = Model.SelectedGroup != null ? $"{Model.SelectedGroup.Name} Members" : "Group Members";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="get" class="mb-4">
+    <div class="row align-items-end">
+        <div class="col-auto">
+            <label for="GroupId" class="form-label">Select Group</label>
+            <select asp-for="GroupId" asp-items="Model.GroupOptions" class="form-select">
+                <option value="">-- Select a Group --</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">View Members</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.SelectedGroup != null)
+{
+    <p class="text-muted">@Model.Members.Count member(s) in this group</p>
+
+    @if (Model.Members.Any())
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var person in Model.Members)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        @if (!string.IsNullOrEmpty(person.ImageFilename))
+                        {
+                            <img src="~/Images/Persons/@person.ImageFilename"
+                                 class="card-img-top"
+                                 alt="@person.FirstName @person.LastName"
+                                 style="height: 200px; object-fit: cover;">
+                            @* <img width="200" src="~/Images/Persons/@Model.Person.ImageFilename" alt="Person Image" /> *@
+
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center text-white"
+                                 style="height: 200px;">
+                                <span class="fs-1">@person.FirstName?.FirstOrDefault()@person.LastName?.FirstOrDefault()</span>
+                            </div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@person.FirstName @person.LastName</h5>
+                            @if (!string.IsNullOrEmpty(person.Company))
+                            {
+                                <p class="card-text text-muted mb-1">@person.Company</p>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a asp-page="/Private/Persons/Details" asp-route-id="@person.Id">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            No members found in this group.
+        </div>
+    }
+}
+else if (Model.GroupId.HasValue)
+{
+    <div class="alert alert-warning">
+        Group not found.
+    </div>
+}
+else
+{
+    <p class="text-muted">Select a group above to view its members.</p>
+}
+
+<div class="mt-4">
+    <a asp-page="/Private/Groups/Index" class="btn btn-secondary">Back to Groups</a>
+</div>
+}
