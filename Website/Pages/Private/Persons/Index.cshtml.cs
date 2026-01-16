@@ -21,6 +21,9 @@ namespace Website.Pages.Persons
         [BindProperty(SupportsGet = true)]
         public int? GroupId { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string ViewMode { get; set; } = "table";
+
         public SelectList GroupOptions { get; set; } = default!;
 
         public async Task OnGetAsync()
