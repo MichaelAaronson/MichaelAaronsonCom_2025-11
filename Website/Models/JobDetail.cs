@@ -5,7 +5,7 @@ namespace Website.Models;
 
 public partial class JobDetail
 {
-    public int DetailId { get; set; }
+    public int Id { get; set; }
 
     public int? JobId { get; set; }
 
@@ -15,5 +15,5 @@ public partial class JobDetail
 
     public byte[] SsmaTimeStamp { get; set; } = null!;
 
-    public virtual ICollection<JobSkill> JobSkills { get; set; } = new List<JobSkill>();
+    public virtual ICollection<JobDetailSkill> JobDetailSkills { get; set; } = new List<JobDetailSkill>();
 }

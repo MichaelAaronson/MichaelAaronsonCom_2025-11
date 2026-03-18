@@ -9,7 +9,7 @@ namespace Website.Models
         public string Name { get; set; } = string.Empty;
         [StringLength(500)]
         public string? Description { get; set; }
-        public ICollection<PersonGroup> PersonGroups { get; set; } = new List<PersonGroup>();
+        public virtual ICollection<PersonGroup> PersonGroups { get; set; } = new List<PersonGroup>();
 
 
     }

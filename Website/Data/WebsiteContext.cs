@@ -42,6 +42,26 @@ namespace Website.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
+            // Configure many-to-many relationship between JobDetail and JobSkill
+            modelBuilder.Entity<JobDetailSkill>(entity =>
+            {
+                // Composite primary key
+                entity.HasKey(jds => new { jds.JobDetailId, jds.JobSkillId });
+                // Relationship to JobDetail
+                entity.HasOne(jds => jds.JobDetail)
+                      .WithMany(jd => jd.JobDetailSkills)
+                      .HasForeignKey(jds => jds.JobDetailId)
+                      .OnDelete(DeleteBehavior.Cascade);
+                // Relationship to JobSkill
+                entity.HasOne(jds => jds.JobSkill)
+                      .WithMany(js => js.JobDetailSkills)
+                      .HasForeignKey(jds => jds.JobSkillId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            //modelBuilder.Entity<JobDetailSkill>()
+            //    .HasKey(jds => new { jds.JobDetailId, jds.JobSkillId });
+
             //// Configure Group table
             //modelBuilder.Entity<Group>(entity =>
             //{
@@ -50,6 +70,7 @@ namespace Website.Data
             //    entity.Property(e => e.Description).HasMaxLength(500);
             //});
         }
+        public DbSet<Website.Models.JobDetail> JobDetail { get; set; } = default!;
 
 
     }

@@ -17,5 +17,5 @@ public partial class JobSkill
 
     public byte[] SsmaTimeStamp { get; set; } = null!;
 
-    public virtual ICollection<JobDetail> JobDetails { get; set; } = new List<JobDetail>();
+    public virtual ICollection<JobDetailSkill> JobDetailSkills { get; set; } = new List<JobDetailSkill>();
 }
