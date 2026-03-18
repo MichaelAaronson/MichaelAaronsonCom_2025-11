@@ -15,6 +15,9 @@ namespace Website.Data
 
         public DbSet<Website.Models.Group> Group { get; set; } = default!;
         public DbSet<Website.Models.PersonGroup> PersonGroup { get; set; } = default!;
+        public DbSet<Website.Models.Job> Job { get; set; } = default!;
+        public DbSet<Website.Models.PlayNumber1> PlayNumber1 { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
