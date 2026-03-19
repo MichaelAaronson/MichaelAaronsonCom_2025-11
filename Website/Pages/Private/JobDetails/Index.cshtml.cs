@@ -23,7 +23,6 @@ namespace Website.Pages.Private.JobDetails
 
         public async Task OnGetAsync()
         {
-            //JobDetail = await _context.JobDetail.ToListAsync();
             JobDetail = await _context.JobDetail.ToListAsync();
         }
     }

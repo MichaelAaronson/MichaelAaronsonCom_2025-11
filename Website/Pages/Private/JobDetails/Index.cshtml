@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.JobDetail[0].Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobDetail[0].SsmaTimeStamp)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,9 +36,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SsmaTimeStamp)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
