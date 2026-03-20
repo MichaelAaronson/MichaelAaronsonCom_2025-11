@@ -11,8 +11,8 @@ using Website.Data;
 namespace Website.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    [Migration("20260319014439_fixJobAndJobDetail2")]
-    partial class fixJobAndJobDetail2
+    [Migration("20260319042125_StartingAgain")]
+    partial class StartingAgain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

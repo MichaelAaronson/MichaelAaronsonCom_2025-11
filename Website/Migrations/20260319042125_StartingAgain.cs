@@ -5,7 +5,7 @@
 namespace Website.Migrations
 {
     /// <inheritdoc />
-    public partial class fixJobAndJobDetail2 : Migration
+    public partial class StartingAgain : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
