@@ -11,15 +11,15 @@ using Website.Data;
 namespace Website.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    [Migration("20260317070429_PlayNumber1AndJob")]
-    partial class PlayNumber1AndJob
+    [Migration("20260321011311_PersonGroupStrings")]
+    partial class PersonGroupStrings
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -55,26 +55,94 @@ namespace Website.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Company")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Dates")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("EndDate")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("StartDate")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Job");
+                });
+
+            modelBuilder.Entity("Website.Models.JobDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Sequence")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobDetail");
+                });
+
+            modelBuilder.Entity("Website.Models.JobDetailSkill", b =>
+                {
+                    b.Property<int>("JobDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobSkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("JobDetailId", "JobSkillId");
+
+                    b.HasIndex("JobSkillId");
+
+                    b.ToTable("JobDetailSkill");
+                });
+
+            modelBuilder.Entity("Website.Models.JobSkill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobSkill");
                 });
 
             modelBuilder.Entity("Website.Models.Person", b =>
@@ -86,26 +154,32 @@ namespace Website.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Company")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ImageFilename")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -125,8 +199,8 @@ namespace Website.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Role")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("PersonId", "GroupId");
 
@@ -145,7 +219,8 @@ namespace Website.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
@@ -175,6 +250,25 @@ namespace Website.Migrations
                     b.ToTable("PlayNumber1");
                 });
 
+            modelBuilder.Entity("Website.Models.JobDetailSkill", b =>
+                {
+                    b.HasOne("Website.Models.JobDetail", "JobDetail")
+                        .WithMany("JobDetailSkills")
+                        .HasForeignKey("JobDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Website.Models.JobSkill", "JobSkill")
+                        .WithMany("JobDetailSkills")
+                        .HasForeignKey("JobSkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobDetail");
+
+                    b.Navigation("JobSkill");
+                });
+
             modelBuilder.Entity("Website.Models.PersonGroup", b =>
                 {
                     b.HasOne("Website.Models.Group", "Group")
@@ -197,6 +291,16 @@ namespace Website.Migrations
             modelBuilder.Entity("Website.Models.Group", b =>
                 {
                     b.Navigation("PersonGroups");
+                });
+
+            modelBuilder.Entity("Website.Models.JobDetail", b =>
+                {
+                    b.Navigation("JobDetailSkills");
+                });
+
+            modelBuilder.Entity("Website.Models.JobSkill", b =>
+                {
+                    b.Navigation("JobDetailSkills");
                 });
 
             modelBuilder.Entity("Website.Models.Person", b =>

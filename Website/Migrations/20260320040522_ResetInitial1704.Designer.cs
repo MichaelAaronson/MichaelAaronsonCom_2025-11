@@ -11,15 +11,15 @@ using Website.Data;
 namespace Website.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    [Migration("20260318091624_JobTables")]
-    partial class JobTables
+    [Migration("20260320040522_ResetInitial1704")]
+    partial class ResetInitial1704
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -94,10 +94,6 @@ namespace Website.Migrations
                     b.Property<int?>("Sequence")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("SsmaTimeStamp")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("JobDetail");
@@ -131,10 +127,6 @@ namespace Website.Migrations
 
                     b.Property<int?>("Count")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("SsmaTimeStamp")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");

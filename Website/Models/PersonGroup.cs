@@ -10,7 +10,7 @@ namespace Website.Models
         public int GroupId { get; set; }
         public Group Group { get; set; } = null!;
 
-        [StringLength(50)]
+        [StringLength(100)]
         [Display(Name = "Role")]
         public string? Role { get; set; }  // e.g., "Member", "Leader", "Admin"
 
