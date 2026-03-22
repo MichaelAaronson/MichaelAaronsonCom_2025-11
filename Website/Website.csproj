@@ -8,7 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ModelsFromPowerTools\**" />
+    <Content Remove="ModelsFromPowerTools\**" />
+    <EmbeddedResource Remove="ModelsFromPowerTools\**" />
+    <None Remove="ModelsFromPowerTools\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\WebsiteDbContext.cs" />
+    <Compile Remove="Pages\Resume\FromClaude.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Resume\FromClaude.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +53,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Utility\" />
     <Folder Include="Pages\Private\GroupsPlay\" />
     <Folder Include="Pages\Public\" />
     <Folder Include="Services\" />

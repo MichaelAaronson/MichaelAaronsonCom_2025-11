@@ -1,0 +1,41 @@
+@page
+@model Website.Pages.ResumeModel
+@{
+    ViewData["Title"] = "Resume";
+}
+
+<h1>Resume</h1>
+
+@if (Model.Jobs == null || !Model.Jobs.Any())
+{
+    <p>No job history found.</p>
+}
+else
+{
+    @foreach (var job in Model.Jobs)
+    {
+        <div class="mb-4">
+            <h3>@job.Role</h3>
+            <p>
+                <strong>@job.Company</strong>
+                @if (!string.IsNullOrEmpty(job.Location))
+                {
+                    <text> &mdash; @job.Location</text>
+                }
+                <br />
+                <em>@job.Dates</em>
+            </p>
+
+            @if (job.JobDetails != null && job.JobDetails.Any())
+            {
+                <ul>
+                    @foreach (var detail in job.JobDetails)
+                    {
+                        <li>@detail.Description</li>
+                    }
+                </ul>
+            }
+        </div>
+        <hr />
+    }
+}
