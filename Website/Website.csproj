@@ -16,11 +16,6 @@
 
   <ItemGroup>
     <Compile Remove="Data\WebsiteDbContext.cs" />
-    <Compile Remove="Pages\Resume\FromClaude.cshtml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Pages\Resume\FromClaude.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -27,7 +27,14 @@
     @inject IConfiguration Configuration
 @*     <footer class="footer"> *@        
     <footer>
-    <p>Michael Aaronson: +64 (0)27 242 0599, <a href="mailto:Michael@MichaelAaronson.com">Michael@MichaelAaronson.com</a>. Compiled: @System.IO.File.GetLastWriteTime(GetType().Assembly.Location).ToString("yyyy-MM-dd HH:mm")</p>
+        <hr/>
+        <p>
+            Michael Aaronson: +64 (0)27 242 0599, <a href="mailto:Michael@MichaelAaronson.com">Michael@MichaelAaronson.com</a>. Compiled: @TimeZoneInfo.ConvertTimeFromUtc(
+                System.IO.File.GetLastWriteTimeUtc(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                TimeZoneInfo.FindSystemTimeZoneById("New Zealand Standard Time")
+            ).ToString("yyyy-MM-dd HH:mm")
+
+        </p>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
