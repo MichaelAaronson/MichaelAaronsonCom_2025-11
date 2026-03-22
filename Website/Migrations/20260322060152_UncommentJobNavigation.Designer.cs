@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Website.Data;
 
@@ -10,9 +11,11 @@ using Website.Data;
 namespace Website.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    partial class WebsiteContextModelSnapshot : ModelSnapshot
+    [Migration("20260322060152_UncommentJobNavigation")]
+    partial class UncommentJobNavigation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,11 +254,9 @@ namespace Website.Migrations
 
             modelBuilder.Entity("Website.Models.JobDetail", b =>
                 {
-                    b.HasOne("Website.Models.Job", "Job")
+                    b.HasOne("Website.Models.Job", null)
                         .WithMany("JobDetails")
                         .HasForeignKey("JobId");
-
-                    b.Navigation("Job");
                 });
 
             modelBuilder.Entity("Website.Models.JobDetailSkill", b =>

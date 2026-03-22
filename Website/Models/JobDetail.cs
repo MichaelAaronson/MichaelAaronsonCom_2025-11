@@ -13,7 +13,7 @@ public partial class JobDetail
 
     public string? Description { get; set; }
 
-    //public virtual Job? Job { get; set; }
+    public virtual Job? Job { get; set; }
 
     public virtual ICollection<JobDetailSkill> JobDetailSkills { get; set; } = new List<JobDetailSkill>();
 }
