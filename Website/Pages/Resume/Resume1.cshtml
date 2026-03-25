@@ -1,10 +1,32 @@
 @page
 @model Website.Pages.ResumeModel
+<style>
+    h1 {text-align:center}
+    table td {
+        border-width: 2px;
+        //text-align: center;
+    }
+</style>
 @{
     ViewData["Title"] = "Resume";
 }
 
+<p>
+    Michael Aaronson
+    <br />Michael@MichaelAaronson.com
+    <br />027 242 0599
+    <br />March 2026
+</p>
 <h1>Resume</h1>
+
+<h2>Education</h2>
+<ul>
+    <li>Johns Hopkins University, Bachelor of Arts, 1963</li>
+    <li>University of California, Berkeley, Master of Engineering in Civil Engineering, 1967</li>
+    <li>Licensed Civil Engineer in California</li>
+</ul>
+
+<h2>Experience</h2>
 
 @if (Model.Jobs == null || !Model.Jobs.Any())
 {
@@ -14,28 +36,29 @@ else
 {
     @foreach (var job in Model.Jobs)
     {
-        <div class="mb-4">
-            <h3>@job.Role</h3>
-            <p>
-                <strong>@job.Company</strong>
-                @if (!string.IsNullOrEmpty(job.Location))
-                {
-                    <text> &mdash; @job.Location</text>
-                }
-                <br />
-                <em>@job.Dates</em>
-            </p>
-
-            @if (job.JobDetails != null && job.JobDetails.Any())
-            {
-                <ul>
-                    @foreach (var detail in job.JobDetails)
+        <div>
+                <p>
+                    <strong>@job.Role</strong>
+                    <br />
+                    @job.Company
+                    @if (!string.IsNullOrEmpty(job.Location))
                     {
-                        <li>@detail.Description</li>
+                        <text> &mdash; @job.Location</text>
+                        <br />
+                        <em>@job.Dates</em>
+                    @job.StartDate @job.EndDate
+                        @if (job.JobDetails != null && job.JobDetails.Any())
+                        {
+                            <ul>
+                                @foreach (var detail in job.JobDetails)
+                                {
+                                    <li>@detail.Description</li>
+                                }
+                            </ul>
+                        }
                     }
-                </ul>
-            }
+                </p>
+
         </div>
-        <hr />
     }
 }

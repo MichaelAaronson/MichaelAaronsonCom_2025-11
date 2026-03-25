@@ -48,7 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Utility\" />
     <Folder Include="Pages\Private\GroupsPlay\" />
     <Folder Include="Pages\Public\" />
     <Folder Include="Services\" />

@@ -71,6 +71,7 @@ namespace Website.Data
             //});
         }
         public DbSet<Website.Models.JobDetail> JobDetail { get; set; } = default!;
+        public DbSet<Website.Models.JobSkill> JobSkill { get; set; } = default!;
 
 
     }
