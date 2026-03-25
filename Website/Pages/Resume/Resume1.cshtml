@@ -44,21 +44,21 @@ else
                     @if (!string.IsNullOrEmpty(job.Location))
                     {
                         <text> &mdash; @job.Location</text>
-                        <br />
-                        <em>@job.Dates</em>
-                    @job.StartDate @job.EndDate
-                        @if (job.JobDetails != null && job.JobDetails.Any())
-                        {
-                            <ul>
-                                @foreach (var detail in job.JobDetails)
-                                {
-                                    <li>@detail.Description</li>
-                                }
-                            </ul>
-                        }
+                    }
+                    <br />
+                    @job.StartAndEndDate
+                    @* @job.Duration *@
+                    
+                    @if (job.JobDetails != null && job.JobDetails.Any())
+                    {
+                        <ul>
+                            @foreach (var detail in job.JobDetails)
+                            {
+                                <li>@detail.Description</li>
+                            }
+                        </ul>
                     }
                 </p>
-
         </div>
     }
 }
