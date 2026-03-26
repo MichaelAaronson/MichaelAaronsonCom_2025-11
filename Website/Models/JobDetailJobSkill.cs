@@ -1,6 +1,6 @@
 ﻿namespace Website.Models
 {
-    public class JobDetailSkill
+    public class JobDetailJobSkill
     {
         public int JobDetailId { get; set; }
         public virtual JobDetail JobDetail { get; set; } = null!;

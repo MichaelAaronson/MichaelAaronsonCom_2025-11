@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Website.Models;
 
@@ -15,5 +14,12 @@ public partial class JobSkill
 
     public string? Summary { get; set; }
 
-    public virtual ICollection<JobDetailSkill> JobDetailSkills { get; set; } = new List<JobDetailSkill>();
+    [NotMapped]
+    public int TotalMonths => JobDetailSkills
+        .Where(jds => jds.JobDetail?.Job != null)
+        .Select(jds => jds.JobDetail.Job!)
+        .DistinctBy(job => job.Id)
+        .Sum(job => job.Duration);
+
+    public virtual ICollection<JobDetailJobSkill> JobDetailSkills { get; set; } = new List<JobDetailJobSkill>();
 }

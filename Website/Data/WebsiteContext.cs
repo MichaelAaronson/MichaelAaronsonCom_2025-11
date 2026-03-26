@@ -43,7 +43,7 @@ namespace Website.Data
             });
 
             // Configure many-to-many relationship between JobDetail and JobSkill
-            modelBuilder.Entity<JobDetailSkill>(entity =>
+            modelBuilder.Entity<JobDetailJobSkill>(entity =>
             {
                 // Composite primary key
                 entity.HasKey(jds => new { jds.JobDetailId, jds.JobSkillId });

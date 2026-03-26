@@ -23,7 +23,14 @@ namespace Website.Pages.Private.JobSkills
 
         public async Task OnGetAsync()
         {
-            JobSkill = await _context.JobSkill.ToListAsync();
+            //JobSkill = await _context.JobSkill.ToListAsync();
+            JobSkill = await _context
+                .JobSkill
+                .Include(s => s.JobDetailSkills)
+                .ThenInclude(jds => jds.JobDetail)
+                .ThenInclude(jd => jd.Job)
+                .ToListAsync();
+
         }
     }
 }
