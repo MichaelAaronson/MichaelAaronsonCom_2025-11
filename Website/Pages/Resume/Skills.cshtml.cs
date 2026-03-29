@@ -30,6 +30,7 @@ namespace Website.Pages.Resume
                 .ThenInclude(jds => jds.JobDetail)
                 .ThenInclude(jd => jd.Job)
                 .ToListAsync();
+            JobSkill = JobSkill.OrderByDescending(s => s.TotalMonths).ToList();
 
         }
     }
