@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Website.Data;
 using Website.Models;
@@ -20,9 +15,12 @@ namespace Website.Pages.Resume
         }
 
         public IList<JobSkill> JobSkill { get;set; } = default!;
+        public string CurrentSort { get; set; } = "months";  // ← new
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string? sort)  // ← add parameter
         {
+            CurrentSort = sort ?? "months";  // ← new
+
             //JobSkill = await _context.JobSkill.ToListAsync();
             JobSkill = await _context
                 .JobSkill
@@ -30,7 +28,16 @@ namespace Website.Pages.Resume
                 .ThenInclude(jds => jds.JobDetail)
                 .ThenInclude(jd => jd.Job)
                 .ToListAsync();
-            JobSkill = JobSkill.OrderByDescending(s => s.TotalMonths).ToList();
+
+            JobSkill = CurrentSort switch
+            {
+                "title" => JobSkill.OrderBy(s => s.Title).ToList(),
+                "count" => JobSkill.OrderByDescending(s => s.Count).ToList(),  // ← new
+                _ => JobSkill.OrderByDescending(s => s.TotalMonths).ToList()
+            };
+
+            JobSkill = JobSkill.Where(s => s.Count > 0 || s.TotalMonths > 0).ToList();  // ← new line
+
 
         }
     }

@@ -8,8 +8,15 @@
 <h1>Skills</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    Sort by:
+    <a asp-page="Skills" asp-route-sort="months"
+       class="@(Model.CurrentSort == "months" ? "fw-bold" : "")">Total Months</a> |
+    <a asp-page="Skills" asp-route-sort="title"
+       class="@(Model.CurrentSort == "title" ? "fw-bold" : "")">Title</a> |
+    <a asp-page="Skills" asp-route-sort="count"
+       class="@(Model.CurrentSort == "count" ? "fw-bold" : "")">Count</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
