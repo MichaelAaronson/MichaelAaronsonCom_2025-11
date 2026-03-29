@@ -21,5 +21,12 @@ public partial class JobSkill
         .DistinctBy(job => job.Id)
         .Sum(job => job.Duration);
 
+    [NotMapped]
+    public int TotalCount => JobDetailSkills
+        .Where(jds => jds.JobDetail?.Job != null)
+        .Select(jds => jds.JobDetail.Job!)
+        .DistinctBy(job => job.Id)
+        .Count();
+
     public virtual ICollection<JobDetailJobSkill> JobDetailSkills { get; set; } = new List<JobDetailJobSkill>();
 }

@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path="../MAComProdToDevel.dcmp" />
     <File Path="../SchemaCompare1.scmp" />
+    <File Path="ToDo.md" />
   </Folder>
   <Project Path="Database/Database.sqlproj" Id="aac2129c-5f2d-46fb-b49a-d1c190c821dd">
     <Build />

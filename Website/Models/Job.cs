@@ -55,8 +55,8 @@ public partial class Job
     {
         get
         {
-            DateTime dStartDate;
-            dStartDate = DateTime.Parse(StartDate);
+            // Publish complains if not null-forgiving (StartDate!)
+            DateTime dStartDate = DateTime.Parse(StartDate!);
             DateTime dEndDate;
             int totalMonths = 0;
 

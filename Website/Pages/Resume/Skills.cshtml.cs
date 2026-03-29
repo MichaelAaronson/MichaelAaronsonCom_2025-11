@@ -32,7 +32,7 @@ namespace Website.Pages.Resume
             JobSkill = CurrentSort switch
             {
                 "title" => JobSkill.OrderBy(s => s.Title).ToList(),
-                "count" => JobSkill.OrderByDescending(s => s.Count).ToList(),  // ← new
+                "count" => JobSkill.OrderByDescending(s => s.TotalCount).ToList(),  // ← new
                 _ => JobSkill.OrderByDescending(s => s.TotalMonths).ToList()
             };
 

@@ -24,10 +24,10 @@
                 @Html.DisplayNameFor(model => model.JobSkill[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JobSkill[0].Count)
+                Total count
             </th>
             <th>
-                                Total months
+                Total months
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.JobSkill[0].Comments)
@@ -44,10 +44,10 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
+                @item.TotalCount
+            </td>            
             <td>
-                    @item.TotalMonths
+                @item.TotalMonths
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comments)
