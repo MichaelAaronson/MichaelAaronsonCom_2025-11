@@ -1,0 +1,54 @@
+﻿@page
+@model Website.Pages.Resume.SkillsModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Skills</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobSkill[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobSkill[0].Count)
+            </th>
+            <th>
+                                Total months
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobSkill[0].Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobSkill[0].Summary)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.JobSkill) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                    @item.TotalMonths
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
