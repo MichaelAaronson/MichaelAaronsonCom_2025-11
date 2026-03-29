@@ -15,11 +15,11 @@ namespace Website.Pages.Resume
         }
 
         public IList<JobSkill> JobSkill { get;set; } = default!;
-        public string CurrentSort { get; set; } = "months";  // ← new
+        public string CurrentSort { get; set; } = "title";  // ← new
 
         public async Task OnGetAsync(string? sort)  // ← add parameter
         {
-            CurrentSort = sort ?? "months";  // ← new
+            CurrentSort = sort ?? "title";  // ← new
 
             //JobSkill = await _context.JobSkill.ToListAsync();
             JobSkill = await _context

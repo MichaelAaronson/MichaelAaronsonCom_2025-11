@@ -9,12 +9,12 @@
 
 <p>
     Sort by:
-    <a asp-page="Skills" asp-route-sort="months"
-       class="@(Model.CurrentSort == "months" ? "fw-bold" : "")">Total Months</a> |
     <a asp-page="Skills" asp-route-sort="title"
-       class="@(Model.CurrentSort == "title" ? "fw-bold" : "")">Title</a> |
+       class="@(Model.CurrentSort == "title" ? "fw-bold" : "")">Name of skill</a> |  
     <a asp-page="Skills" asp-route-sort="count"
-       class="@(Model.CurrentSort == "count" ? "fw-bold" : "")">Count</a>
+       class="@(Model.CurrentSort == "count" ? "fw-bold" : "")">Number of jobs</a> |
+    <a asp-page="Skills" asp-route-sort="months"
+       class="@(Model.CurrentSort == "months" ? "fw-bold" : "")">Months used</a>
 </p>
 
 <table class="table">
