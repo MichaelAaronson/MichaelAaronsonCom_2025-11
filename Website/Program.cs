@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Admin");
+    options.Conventions.AuthorizeFolder("/Data");
     options.Conventions.AuthorizeFolder("/Private");
 
 });

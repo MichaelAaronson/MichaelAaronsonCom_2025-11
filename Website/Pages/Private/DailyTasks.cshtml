@@ -1,0 +1,88 @@
+@page
+@model Website.Pages.Private.Steps.DailyTasksModel
+@{
+    ViewData["Title"] = "Daily Tasks";
+}
+
+<h1>Daily Tasks</h1>
+<p class="text-muted">
+    Showing incomplete steps with start date on or before @DateOnly.FromDateTime(DateTime.Today).ToString("d MMMM yyyy")
+</p>
+
+<!-- Priority filter -->
+<div class="mb-3">
+    <form method="get" class="d-inline-flex align-items-center gap-2">
+        <label for="MaxPriority" class="form-label mb-0 fw-bold">Filter by priority:</label>
+        <select name="MaxPriority" id="MaxPriority" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
+            <option value="">All priorities</option>
+            <option value="1" selected="@(Model.MaxPriority == 1 ? "selected" : null)">Priority 1 only</option>
+            <option value="2" selected="@(Model.MaxPriority == 2 ? "selected" : null)">Priority 1 &amp; 2</option>
+            <option value="3" selected="@(Model.MaxPriority == 3 ? "selected" : null)">Priority 1, 2 &amp; 3</option>
+        </select>
+        <noscript><button type="submit" class="btn btn-sm btn-primary">Apply</button></noscript>
+    </form>
+</div>
+
+@if (Model.TotalCount == 0)
+{
+    <div class="alert alert-success">
+        <strong>All clear!</strong> No tasks due today or overdue.
+    </div>
+}
+else
+{
+    <p><strong>@Model.TotalCount</strong> task@(Model.TotalCount != 1 ? "s" : "")</p>
+
+    @foreach (var group in Model.GroupedSteps)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Priority @group.Key <span class="badge bg-secondary">@group.Count()</span></h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;"></th>
+                            <th>Task</th>
+                            <th>Project</th>
+                            <th>Domain</th>
+                            <th>Start Date</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var step in group)
+                        {
+                            var isOverdue = step.StartDate < DateOnly.FromDateTime(DateTime.Today);
+                            <tr class="@(isOverdue ? "table-warning" : "")">
+                                <td class="text-center">
+                                    <form method="post" asp-page-handler="Complete">
+                                        <input type="hidden" name="id" value="@step.Id" />
+                                        <input type="hidden" name="MaxPriority" value="@Model.MaxPriority" />
+                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Mark complete">
+                                            &#x2713;
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    @step.Title
+                                </td>
+                                <td>@step.Project?.Title</td>
+                                <td>@step.Project?.Domain?.Title</td>
+                                <td>
+                                    @step.StartDate.ToString("d MMM yyyy")
+                                    @if (isOverdue)
+                                    {
+                                        <span class="badge bg-warning text-dark">Overdue</span>
+                                    }
+                                </td>
+                                <td><small class="text-muted">@step.Comments</small></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
