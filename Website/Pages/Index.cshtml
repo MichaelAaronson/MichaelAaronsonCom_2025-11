@@ -19,6 +19,11 @@
             <li><a asp-page="/Private/Projects/Index">Projects</a></li>
             <li><a asp-page="/Private/Steps/Index">Steps</a></li>
         </ul>
+        <ul>
+            <li>2026-03-03 2233</li>
+            <li>Compiled: @TimeZoneInfo.ConvertTimeFromUtc(System.IO.File.GetLastWriteTimeUtc(System.Reflection.Assembly.GetExecutingAssembly().Location), TimeZoneInfo.FindSystemTimeZoneById("New Zealand Standard Time")).ToString("yyyy-MM-dd HH:mm")</li>
+            <li>Hard coded: 2026-04-03.</li>
+        </ul>
     }
     <p><a asp-page="/Resume/Index">Resume</a></p>
 
