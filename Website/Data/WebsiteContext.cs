@@ -72,6 +72,10 @@ namespace Website.Data
         }
         public DbSet<Website.Models.JobDetail> JobDetail { get; set; } = default!;
         public DbSet<Website.Models.JobSkill> JobSkill { get; set; } = default!;
+        public DbSet<Website.Models.Goal> Goal { get; set; } = default!;
+        public DbSet<Website.Models.Domain> Domain { get; set; } = default!;
+        public DbSet<Website.Models.Project> Project { get; set; } = default!;
+        public DbSet<Website.Models.Step> Step { get; set; } = default!;
 
 
     }

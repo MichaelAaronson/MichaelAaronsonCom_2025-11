@@ -9,11 +9,15 @@
     @if (User.Identity?.IsAuthenticated == true)
     {
         <ul>
+            <li><a asp-page="/Private/Domains/Index">Domains</a></li>
+            <li><a asp-page="/Private/Goals/Index">Goals</a></li>
             <li><a asp-page="/Private/Groups/Index">Groups</a></li>
             <li><a asp-page="/Private/Jobs/Index">Jobs</a></li>
             <li><a asp-page="/Private/JobDetails/Index">JobDetails</a></li>
             <li><a asp-page="/Private/JobSkills/Index">JobSkills</a></li>
             <li><a asp-page="/Private/Persons/Index">Persons</a></li>
+            <li><a asp-page="/Private/Projects/Index">Projects</a></li>
+            <li><a asp-page="/Private/Steps/Index">Steps</a></li>
         </ul>
     }
     <p><a asp-page="/Resume/Index">Resume</a></p>

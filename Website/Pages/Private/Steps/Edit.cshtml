@@ -1,0 +1,65 @@
+﻿@page
+@model Website.Pages.Private.Steps.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Step</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Step.Id" />
+            <div class="form-group">
+                <label asp-for="Step.Priority" class="control-label"></label>
+                <input asp-for="Step.Priority" class="form-control" />
+                <span asp-validation-for="Step.Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.StartDate" class="control-label"></label>
+                <input asp-for="Step.StartDate" class="form-control" />
+                <span asp-validation-for="Step.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Step.IsComplete" /> @Html.DisplayNameFor(model => model.Step.IsComplete)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.Title" class="control-label"></label>
+                <input asp-for="Step.Title" class="form-control" />
+                <span asp-validation-for="Step.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.Comments" class="control-label"></label>
+                <input asp-for="Step.Comments" class="form-control" />
+                <span asp-validation-for="Step.Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.ProjectId" class="control-label"></label>
+                <select asp-for="Step.ProjectId" class="form-control" asp-items="ViewBag.ProjectId" ></select>
+                <span asp-validation-for="Step.ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.TimeStamp" class="control-label"></label>
+                <input asp-for="Step.TimeStamp" class="form-control" />
+                <span asp-validation-for="Step.TimeStamp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
