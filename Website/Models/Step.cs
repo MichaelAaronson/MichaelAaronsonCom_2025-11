@@ -20,4 +20,5 @@ public partial class Step
     public int ProjectId { get; set; }
 
     public byte[] TimeStamp { get; set; } = null!;
+    public virtual Project Project { get; set; } = null!;
 }

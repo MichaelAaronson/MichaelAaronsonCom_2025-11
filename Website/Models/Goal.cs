@@ -8,4 +8,5 @@ public partial class Goal
     public int Id { get; set; }
 
     public string Title { get; set; } = null!;
+    public ICollection<Project> Projects { get; set; } = [];
 }
