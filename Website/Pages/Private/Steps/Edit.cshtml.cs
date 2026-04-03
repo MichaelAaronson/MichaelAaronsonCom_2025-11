@@ -46,6 +46,7 @@ namespace Website.Pages.Private.Steps
         {
             if (!ModelState.IsValid)
             {
+                ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
                 return Page();
             }
 

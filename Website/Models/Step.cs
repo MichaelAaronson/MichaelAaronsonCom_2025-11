@@ -19,6 +19,4 @@ public partial class Step
 
     public int ProjectId { get; set; }
     public Project? Project { get; set; } = null;
-
-    public byte[] TimeStamp { get; set; } = null!;
 }

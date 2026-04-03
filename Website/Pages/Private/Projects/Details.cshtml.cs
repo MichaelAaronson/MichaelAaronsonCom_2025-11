@@ -28,7 +28,10 @@ namespace Website.Pages.Private.Projects
                 return NotFound();
             }
 
-            var project = await _context.Project.FirstOrDefaultAsync(m => m.Id == id);
+            var project = await _context.Project
+                .Include(p => p.Domain)
+                .Include(p => p.Goal)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (project is not null)
             {
