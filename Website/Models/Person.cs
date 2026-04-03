@@ -24,6 +24,6 @@ public partial class Person
     [StringLength(100)]
     public string? ImageFilename { get; set; }
 
-    public ICollection<PersonGroup> PersonGroups { get; set; } = new List<PersonGroup>();
+    public ICollection<PersonGroup> PersonGroups { get; set; } = [];
 
 }

@@ -15,5 +15,5 @@ public partial class JobDetail
 
     public virtual Job? Job { get; set; }
 
-    public virtual ICollection<JobDetailJobSkill> JobDetailSkills { get; set; } = new List<JobDetailJobSkill>();
+    public ICollection<JobDetailJobSkill> JobDetailSkills { get; set; } = [];
 }

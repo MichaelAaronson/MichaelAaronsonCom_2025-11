@@ -28,5 +28,5 @@ public partial class JobSkill
         .DistinctBy(job => job.Id)
         .Count();
 
-    public virtual ICollection<JobDetailJobSkill> JobDetailSkills { get; set; } = new List<JobDetailJobSkill>();
+    public ICollection<JobDetailJobSkill> JobDetailSkills { get; set; } = [];
 }

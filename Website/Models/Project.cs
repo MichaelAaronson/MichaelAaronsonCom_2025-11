@@ -9,5 +9,8 @@ public partial class Project
 
     public string Title { get; set; } = null!;
 
+    public int GoalId { get; set; }
+
     public int DomainId { get; set; }
+    
 }

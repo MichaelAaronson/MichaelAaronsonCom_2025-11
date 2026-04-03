@@ -25,7 +25,7 @@ public partial class Job
     [StringLength(255)]
     public string? Role { get; set; }
 
-    public virtual ICollection<JobDetail> JobDetails { get; set; } = new List<JobDetail>();
+    public ICollection<JobDetail> JobDetails { get; set; } = [];
 
     [NotMapped]
     public string StartAndEndDate
