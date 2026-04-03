@@ -21,8 +21,10 @@ namespace Website.Pages.Private.Projects
 
         public IActionResult OnGet()
         {
-        ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Id");
-        ViewData["GoalId"] = new SelectList(_context.Goal, "Id", "Id");
+            //ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Id");
+            ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Title");
+            //ViewData["GoalId"] = new SelectList(_context.Goal, "Id", "Id");
+            ViewData["GoalId"] = new SelectList(_context.Goal, "Id", "Title", null);
             return Page();
         }
 
@@ -34,6 +36,8 @@ namespace Website.Pages.Private.Projects
         {
             if (!ModelState.IsValid)
             {
+                ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Title");
+                ViewData["GoalId"] = new SelectList(_context.Goal, "Id", "Title", null);
                 return Page();
             }
 

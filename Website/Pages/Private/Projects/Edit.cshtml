@@ -21,7 +21,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Project.GoalId" class="control-label"></label>
-                <select asp-for="Project.GoalId" class="form-control" asp-items="ViewBag.GoalId" ></select>
+                @* <select asp-for="Project.GoalId" class="form-control" asp-items="ViewBag.GoalId" ></select> *@
+                <select asp-for="Project.GoalId" class ="form-control" asp-items="ViewBag.GoalId" >
+                    <option value="">-- Select Goal (optional) --</option>
+                </select>
                 <span asp-validation-for="Project.GoalId" class="text-danger"></span>
             </div>
             <div class="form-group">
