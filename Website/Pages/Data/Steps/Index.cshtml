@@ -26,12 +26,15 @@
                 @Html.DisplayNameFor(model => model.Step[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Step[0].Comments)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Step[0].Project)
             </th>
-            <th></th>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Step[0].Comments)
+            </th>
+
         </tr>
     </thead>
     <tbody>
@@ -49,16 +52,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.Title)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+                <td>
                 @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project.Title)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
