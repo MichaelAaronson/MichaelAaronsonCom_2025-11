@@ -6,6 +6,11 @@
         border-width: 2px;
         //text-align: center;
     }
+    @@media print {
+        .no-print, header, nav {
+            display: none;
+        }
+    }
 </style>
 @{
     ViewData["Title"] = "Resume";
@@ -16,7 +21,9 @@
     <br />Michael@MichaelAaronson.com
     <br />027 242 0599
     <br />March 2026
+    <br /><a href="javascript:window.print()" class="no-print">Save as PDF</a>
 </p>
+
 <h1>Resume</h1>
 
 <h2>Education</h2>
