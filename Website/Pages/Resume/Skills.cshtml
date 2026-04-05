@@ -14,7 +14,7 @@
     <a asp-page="Skills" asp-route-sort="count"
        class="@(Model.CurrentSort == "count" ? "fw-bold" : "")">Number of jobs</a> |
     <a asp-page="Skills" asp-route-sort="months"
-       class="@(Model.CurrentSort == "months" ? "fw-bold" : "")">Months used</a>
+       class="@(Model.CurrentSort == "months" ? "fw-bold" : "")">Length of experience</a>
 </p>
 
 <table class="table">
@@ -23,17 +23,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.JobSkill[0].Title)
             </th>
-            <th>
-                Total count
+            <th style="width: 100px; text-align: right">
+                Jobs
+            </th>
+            <th style="width: 100px; text-align: right">
+                >
+                Experience
             </th>
             <th>
-                Total months
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobSkill[0].Comments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobSkill[0].Summary)
+                Details
             </th>
         </tr>
     </thead>
@@ -43,14 +41,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            <td style="text-align: right;">
                 @item.TotalCount
             </td>            
-            <td>
-                @item.TotalMonths
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
+            <td style="width: 100px; text-align: right">
+                    @if (item.TotalMonths >= 24)
+                    {
+                        var years = Math.Round(item.TotalMonths / 12.0);
+                        @($"{years} year{(years != 1 ? "s" : "")}")
+                    }
+                    else
+                    {
+                        @($"{item.TotalMonths} month{(item.TotalMonths != 1 ? "s" : "")}")
+                    }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Summary)
