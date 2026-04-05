@@ -26,6 +26,16 @@
 
 <h1>Resume</h1>
 
+<form method="get" class="no-print mb-3">
+    <label for="startYear">Show jobs starting from year:</label>
+    <input type="number" name="startYear" id="startYear"
+           value="@Model.StartYear" min="1960" max="2026" />
+    <button type="submit">Filter</button>
+    @if (Model.StartYear.HasValue)
+    {
+        <a asp-page="Resume">Clear filter</a>
+    }
+</form>
 <h2>Education</h2>
 <ul>
     <li>Johns Hopkins University, Bachelor of Arts, 1963</li>

@@ -2,7 +2,13 @@
 @model Website.Pages.Resume.SkillsModel
 <style>
     h1 {
+
         text-align: center
+    }
+    @@media print {
+        .no-print, header, nav {
+            display: none;
+        }
     }
 </style>
 
@@ -20,7 +26,7 @@
 
 <h1>Skills</h1>
 
-<p>
+<p class="no-print">
     Sort by:
     <a asp-page="Skills" asp-route-sort="title"
        class="@(Model.CurrentSort == "title" ? "fw-bold" : "")">Name of skill</a> |  
@@ -40,7 +46,6 @@
                 Jobs
             </th>
             <th style="width: 100px; text-align: right">
-                >
                 Experience
             </th>
             <th>

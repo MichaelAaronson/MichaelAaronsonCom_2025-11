@@ -15,12 +15,23 @@ public class ResumeModel : PageModel
     }
 
     public IList<Job> Jobs { get; set; } = default!;
+    public int? StartYear { get; set; }
 
-    public async Task OnGetAsync()
+    public async Task OnGetAsync(int? startYear)
     {
+        StartYear = startYear;
+
         Jobs = await _context.Job
             .Include(j => j.JobDetails.OrderBy(jd => jd.Sequence))
             .OrderBy(j => j.Id)
             .ToListAsync();
+
+        if (StartYear.HasValue)
+        {
+            string cutoff = $"{StartYear.Value:D4}";
+            Jobs = Jobs
+                .Where(j => string.Compare(j.StartDate, cutoff, StringComparison.Ordinal) >= 0)
+                .ToList();
+        }
     }
 }
