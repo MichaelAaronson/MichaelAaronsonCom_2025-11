@@ -39,7 +39,7 @@
 @foreach (var item in Model.JobSkill) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.Title)@if (!string.IsNullOrEmpty(item.Version)) { <text> (@item.Version)</text> }
             </td>
             <td style="text-align: right;">
                 @item.TotalCount
