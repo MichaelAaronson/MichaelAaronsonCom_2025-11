@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Private.JobSkills
+namespace Website.Pages.Data.JobSkills
 {
     public class EditModel : PageModel
     {

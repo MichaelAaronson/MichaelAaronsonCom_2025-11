@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Private.JobSkills
+namespace Website.Pages.Data.JobSkills
 {
     public class CreateModel : PageModel
     {

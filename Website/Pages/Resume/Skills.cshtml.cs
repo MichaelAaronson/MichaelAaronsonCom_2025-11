@@ -36,7 +36,7 @@ namespace Website.Pages.Resume
                 _ => JobSkill.OrderByDescending(s => s.TotalMonths).ToList()
             };
 
-            JobSkill = JobSkill.Where(s => s.Count > 0 || s.TotalMonths > 0).ToList();  // ← new line
+            JobSkill = JobSkill.Where(s => s.TotalMonths > 0).ToList();  // ← new line
 
 
         }

@@ -1,17 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Build.Framework;
 
 namespace Website.Models;
 
 public partial class JobSkill
 {
     public int Id { get; set; }
-
-    public string? Title { get; set; }
-
-    public int? Count { get; set; }
-
+    public string Title { get; set; }
+    [Required]
+    public string? Version { get; set; }
     public string? Comments { get; set; }
-
     public string? Summary { get; set; }
 
     [NotMapped]

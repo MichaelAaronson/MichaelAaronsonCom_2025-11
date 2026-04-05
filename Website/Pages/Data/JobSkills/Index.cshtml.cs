@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Private.JobSkills
+namespace Website.Pages.Data.JobSkills
 {
     public class IndexModel : PageModel
     {
@@ -23,14 +23,7 @@ namespace Website.Pages.Private.JobSkills
 
         public async Task OnGetAsync()
         {
-            //JobSkill = await _context.JobSkill.ToListAsync();
-            JobSkill = await _context
-                .JobSkill
-                .Include(s => s.JobDetailSkills)
-                .ThenInclude(jds => jds.JobDetail)
-                .ThenInclude(jd => jd.Job)
-                .ToListAsync();
-
+            JobSkill = await _context.JobSkill.ToListAsync();
         }
     }
 }

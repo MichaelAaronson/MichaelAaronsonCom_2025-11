@@ -1,5 +1,5 @@
 ﻿@page
-@model Website.Pages.Private.JobSkills.IndexModel
+@model Website.Pages.Data.JobSkills.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,16 +14,10 @@
     <thead>
         <tr>
             <th>
-
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.JobSkill[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JobSkill[0].Count)
-            </th>
-            <th>
-                                Total months
+                @Html.DisplayNameFor(model => model.JobSkill[0].Version)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.JobSkill[0].Comments)
@@ -31,30 +25,28 @@
             <th>
                 @Html.DisplayNameFor(model => model.JobSkill[0].Summary)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.JobSkill) {
         <tr>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-            <td>
-                    @item.TotalMonths
+                @Html.DisplayFor(modelItem => item.Version)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comments)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
