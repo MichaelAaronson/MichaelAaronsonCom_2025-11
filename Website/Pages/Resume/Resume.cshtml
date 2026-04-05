@@ -31,10 +31,7 @@
     <input type="number" name="startYear" id="startYear"
            value="@Model.StartYear" min="1960" max="2026" />
     <button type="submit">Filter</button>
-    @if (Model.StartYear.HasValue)
-    {
-        <a asp-page="Resume">Clear filter</a>
-    }
+    <a asp-page="Resume">All</a>
 </form>
 <h2>Education</h2>
 <ul>
