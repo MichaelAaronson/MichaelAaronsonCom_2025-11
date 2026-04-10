@@ -23,6 +23,9 @@ namespace Website.Pages.Private.Steps
         [BindProperty]
         public Step Step { get; set; } = default!;
 
+        [BindProperty(SupportsGet = true)]
+        public string? ReturnUrl { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -68,6 +71,10 @@ namespace Website.Pages.Private.Steps
                 }
             }
 
+            if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+            {
+                return Redirect(ReturnUrl);
+            }
             return RedirectToPage("./Index");
         }
 
