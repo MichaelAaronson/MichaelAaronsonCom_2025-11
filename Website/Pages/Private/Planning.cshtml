@@ -1,0 +1,112 @@
+﻿@page
+@model Website.Pages.Private.PlanningModel
+@{
+    ViewData["Title"] = "Planning";
+}
+
+<h1>Planning</h1>
+<p class="text-muted">
+    Steps grouped by Domain and Project, sorted by Priority then Start Date.
+</p>
+
+<!-- Show completed filter -->
+<div class="mb-3">
+    <form method="get" class="d-inline-flex align-items-center gap-2">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="ShowCompleted"
+                   name="ShowCompleted" value="true"
+                   checked="@(Model.ShowCompleted ? "checked" : null)"
+                   onchange="this.form.submit()" />
+            <label class="form-check-label" for="ShowCompleted">Show completed</label>
+        </div>
+        <noscript><button type="submit" class="btn btn-sm btn-primary">Apply</button></noscript>
+    </form>
+</div>
+
+@if (Model.TotalSteps == 0)
+{
+    <div class="alert alert-info">
+        No steps to display.
+    </div>
+}
+else
+{
+    <p><strong>@Model.TotalSteps</strong> step@(Model.TotalSteps != 1 ? "s" : "")</p>
+
+    @foreach (var domain in Model.Domains)
+    {
+        <h3 class="mt-4 mb-3">@domain.DomainTitle</h3>
+
+        @foreach (var project in domain.Projects)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0 d-inline">@project.ProjectTitle</h5>
+                    @if (project.GoalTitle != null)
+                    {
+                        <small class="text-muted ms-2">Goal: @project.GoalTitle</small>
+                    }
+                    <span class="float-end">
+                        <span class="badge bg-success">@project.StepsComplete complete</span>
+                        <span class="badge bg-primary">@project.StepsActive active</span>
+                        <span class="badge bg-secondary">@project.StepsDeferred deferred</span>
+                    </span>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">Priority</th>
+                                <th>Title</th>
+                                <th>Start Date</th>
+                                <th>Status</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var today = DateOnly.FromDateTime(DateTime.Today);
+                            }
+                            @foreach (var step in project.Steps)
+                            {
+                                var isActive = !step.IsComplete && step.StartDate <= today;
+                                var isDeferred = !step.IsComplete && step.StartDate > today;
+                                var rowClass = step.IsComplete ? "table-light text-muted" :
+                                               isActive ? "" : "text-muted";
+                                <tr class="@rowClass">
+                                    <td class="text-center">@step.Priority</td>
+                                    <td>
+                                        @if (step.IsComplete)
+                                        {
+                                            <s>@step.Title</s>
+                                        }
+                                        else
+                                        {
+                                            @step.Title
+                                        }
+                                    </td>
+                                    <td>@step.StartDate.ToString("d MMM yyyy")</td>
+                                    <td>
+                                        @if (step.IsComplete)
+                                        {
+                                            <span class="badge bg-success">Complete</span>
+                                        }
+                                        else if (isActive)
+                                        {
+                                            <span class="badge bg-primary">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Deferred</span>
+                                        }
+                                    </td>
+                                    <td><small class="text-muted">@step.Comments</small></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+}
