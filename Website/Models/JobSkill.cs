@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.Build.Framework;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Website.Models;
 
 public partial class JobSkill
 {
     public int Id { get; set; }
-    public string Title { get; set; }
+
     [Required]
+    public string Title { get; set; } = string.Empty;
     public string? Version { get; set; }
     public string? Comments { get; set; }
     public string? Summary { get; set; }
