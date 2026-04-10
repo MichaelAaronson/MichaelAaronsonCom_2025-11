@@ -47,27 +47,18 @@ namespace Website.Pages.Private
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
 
-            var query = _context.Step
+            // Always load all steps for accurate counts
+            var allSteps = await _context.Step
                 .Include(s => s.Project)
                     .ThenInclude(p => p!.Domain)
                 .Include(s => s.Project)
                     .ThenInclude(p => p!.Goal)
-                .AsQueryable();
-
-            if (!ShowCompleted)
-            {
-                query = query.Where(s => !s.IsComplete);
-            }
-
-            var steps = await query
                 .OrderBy(s => s.Priority)
                 .ThenBy(s => s.StartDate)
                 .ToListAsync();
 
-            TotalSteps = steps.Count;
-
             // Group by Domain then Project
-            Domains = steps
+            Domains = allSteps
                 .GroupBy(s => s.Project?.Domain?.Title ?? "(No Domain)")
                 .OrderBy(g => g.Key)
                 .Select(domainGroup => new DomainGroup
@@ -83,23 +74,33 @@ namespace Website.Pages.Private
                         .OrderBy(g => g.Key.ProjectTitle)
                         .Select(projGroup =>
                         {
-                            // Count all steps for this project (not just filtered)
                             var allProjectSteps = projGroup.ToList();
+                            // Filter for display only
+                            var displaySteps = ShowCompleted
+                                ? allProjectSteps
+                                : allProjectSteps.Where(s => !s.IsComplete).ToList();
+
                             return new ProjectGroup
                             {
                                 ProjectId = projGroup.Key.ProjectId,
                                 ProjectTitle = projGroup.Key.ProjectTitle,
                                 GoalTitle = projGroup.Key.GoalTitle,
+                                // Counts always based on ALL steps
                                 StepsTotal = allProjectSteps.Count,
                                 StepsComplete = allProjectSteps.Count(s => s.IsComplete),
                                 StepsActive = allProjectSteps.Count(s => !s.IsComplete && s.StartDate <= today),
                                 StepsDeferred = allProjectSteps.Count(s => !s.IsComplete && s.StartDate > today),
-                                Steps = allProjectSteps
+                                // Display only filtered steps
+                                Steps = displaySteps
                             };
                         })
+                        .Where(p => p.Steps.Count > 0) // Hide empty projects
                         .ToList()
                 })
+                .Where(d => d.Projects.Count > 0) // Hide empty domains
                 .ToList();
+
+            TotalSteps = Domains.SelectMany(d => d.Projects).SelectMany(p => p.Steps).Count();
         }
     }
 }
