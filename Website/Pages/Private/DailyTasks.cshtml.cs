@@ -66,5 +66,18 @@ namespace Website.Pages.Private.Steps
             // Preserve the filter when redirecting back
             return RedirectToPage(new { MaxPriority });
         }
+        public async Task<IActionResult> OnPostChangePriorityAsync(
+            [FromForm] int id,
+            [FromForm] int newPriority)
+        {
+            var step = await _context.Step.FindAsync(id);
+            if (step != null)
+            {
+                step.Priority = newPriority;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage(new { MaxPriority });
+        }
     }
 }

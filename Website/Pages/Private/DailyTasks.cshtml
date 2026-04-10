@@ -45,6 +45,7 @@ else
                         <tr>
                             <th style="width: 50px;"></th>
                             <th style="width: 50px;"></th>
+                            <th style="width: 80px;">Priority</th>
                             <th>Task</th>
                             <th>Project</th>
                             <th>Domain</th>
@@ -71,6 +72,20 @@ else
                                                    title="Mark complete"
                                                    onchange="if(confirm('Mark this task as complete?')) { this.closest('form').submit(); } else { this.checked = false; }" />
                                         </div>
+                                    </form>
+                                </td>
+                                <td class="text-center">
+                                    <form method="post" asp-page-handler="ChangePriority">
+                                        <input type="hidden" name="id" value="@step.Id" />
+                                        <input type="hidden" name="MaxPriority" value="@Model.MaxPriority" />
+                                        <select name="newPriority" class="form-select form-select-sm" 
+                                                style="width: 70px;"
+                                                onchange="this.closest('form').submit();">
+                                            @for (int p = 1; p <= 5; p++)
+                                            {
+                                                <option value="@p" selected="@(step.Priority == p ? "selected" : null)">@p</option>
+                                            }
+                                        </select>
                                     </form>
                                 </td>
                                 <td>
