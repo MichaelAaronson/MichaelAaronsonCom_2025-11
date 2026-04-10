@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Persons
+namespace Website.Pages.Private.Persons
 {
     public class PersonsModel : PageModel
     {

@@ -1,5 +1,5 @@
 ﻿@page
-@model Website.Pages.Private.Persons.ImageManagerModel
+@model Website.Pages.Data.Persons.ImageManagerModel
 
 @{
     ViewData["Title"] = "Image Manager";
@@ -22,6 +22,39 @@
     <div class="alert alert-info mt-3" style="max-width: 400px;">@Model.Message</div>
 }
 
+@if (!string.IsNullOrEmpty(Model.DiagFilename))
+{
+    <h2 class="mt-4">All Metadata: @Model.DiagFilename</h2>
+    @if (Model.DiagTags.Count == 0)
+    {
+        <p>No metadata found in this image.</p>
+    }
+    else
+    {
+        <p>@Model.DiagTags.Count tags found.</p>
+        <table class="table table-sm" style="max-width: 900px;">
+            <thead>
+                <tr>
+                    <th>Directory</th>
+                    <th>Tag</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tag in Model.DiagTags)
+                {
+                    <tr>
+                        <td>@tag.Directory</td>
+                        <td>@tag.TagName</td>
+                        <td>@(tag.Value ?? "(null)")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <a href="/Data/Persons/ImageManager" class="btn btn-secondary mb-3">Close Metadata</a>
+}
+
 <h2 class="mt-4">Current Images (@Model.Images.Count)</h2>
 
 @if (Model.Images.Count == 0)
@@ -30,11 +63,13 @@
 }
 else
 {
-    <table class="table" style="max-width: 800px;">
+    <table class="table">
         <thead>
             <tr>
                 <th>Filename</th>
                 <th>Size</th>
+                <th>Description</th>
+                <th>Date Taken</th>
                 <th>Preview</th>
                 <th></th>
             </tr>
@@ -45,10 +80,13 @@ else
                 <tr>
                     <td style="vertical-align: middle;">@image.Filename</td>
                     <td style="vertical-align: middle;">@image.SizeKb KB</td>
+                    <td style="vertical-align: middle;">@(image.Description ?? "—")</td>
+                    <td style="vertical-align: middle;">@(image.DateTaken ?? "—")</td>
                     <td>
                         <img src="~/Images/Persons/@image.Filename" alt="@image.Filename" style="max-height: 100px;" />
                     </td>
                     <td style="vertical-align: middle;">
+                        <a href="/Data/Persons/ImageManager?handler=Diag&filename=@image.Filename" class="btn btn-sm btn-outline-secondary me-1">Metadata</a>
                         <form method="post" asp-page-handler="Delete" style="display:inline;">
                             <input type="hidden" name="filename" value="@image.Filename" />
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete @image.Filename?');">Delete</button>
