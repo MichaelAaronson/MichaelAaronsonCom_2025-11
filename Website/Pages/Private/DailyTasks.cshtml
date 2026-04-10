@@ -44,12 +44,12 @@ else
                     <thead>
                         <tr>
                             <th style="width: 50px;"></th>
+                            <th style="width: 50px;"></th>
                             <th>Task</th>
                             <th>Project</th>
                             <th>Domain</th>
                             <th>Start Date</th>
                             <th>Comments</th>
-                            <th style="width: 50px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,12 +58,19 @@ else
                             var isOverdue = step.StartDate < DateOnly.FromDateTime(DateTime.Today);
                             <tr class="@(isOverdue ? "table-warning" : "")">
                                 <td class="text-center">
+                                    <a asp-page="/Data/Steps/Edit" asp-route-id="@step.Id" class="btn btn-sm btn-outline-primary" title="Edit">
+                                        &#x270E;
+                                    </a>
+                                </td>
+                                <td class="text-center">
                                     <form method="post" asp-page-handler="Complete">
                                         <input type="hidden" name="id" value="@step.Id" />
                                         <input type="hidden" name="MaxPriority" value="@Model.MaxPriority" />
-                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Mark complete">
-                                            &#x2713;
-                                        </button>
+                                        <div class="form-check form-switch d-flex justify-content-center mb-0">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                   title="Mark complete"
+                                                   onchange="if(confirm('Mark this task as complete?')) { this.closest('form').submit(); } else { this.checked = false; }" />
+                                        </div>
                                     </form>
                                 </td>
                                 <td>
@@ -79,11 +86,6 @@ else
                                     }
                                 </td>
                                 <td><small class="text-muted">@step.Comments</small></td>
-                                <td class="text-center">
-                                    <a asp-page="/Data/Steps/Edit" asp-route-id="@step.Id" class="btn btn-sm btn-outline-primary" title="Edit">
-                                        &#x270E;
-                                    </a>
-                                </td>
                             </tr>
                         }
                     </tbody>
