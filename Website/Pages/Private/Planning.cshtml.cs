@@ -102,5 +102,30 @@ namespace Website.Pages.Private
 
             TotalSteps = Domains.SelectMany(d => d.Projects).SelectMany(p => p.Steps).Count();
         }
+        public async Task<IActionResult> OnPostCompleteAsync(int id)
+        {
+            var step = await _context.Step.FindAsync(id);
+            if (step != null)
+            {
+                step.IsComplete = true;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage(new { ShowCompleted });
+        }
+
+        public async Task<IActionResult> OnPostChangePriorityAsync(
+            [FromForm] int id,
+            [FromForm] int newPriority)
+        {
+            var step = await _context.Step.FindAsync(id);
+            if (step != null)
+            {
+                step.Priority = newPriority;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage(new { ShowCompleted });
+        }
     }
 }
