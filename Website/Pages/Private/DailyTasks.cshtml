@@ -46,10 +46,10 @@ else
                             <th style="width: 50px;"></th>
                             <th style="width: 50px;"></th>
                             <th style="width: 80px;">Priority</th>
-                            <th>Task</th>
                             <th>Project</th>
                             <th>Domain</th>
                             <th>Start Date</th>
+                            <th>Task</th>
                             <th>Comments</th>
                         </tr>
                     </thead>
@@ -88,9 +88,6 @@ else
                                         </select>
                                     </form>
                                 </td>
-                                <td>
-                                    @step.Title
-                                </td>
                                 <td>@step.Project?.Title</td>
                                 <td>@step.Project?.Domain?.Title</td>
                                 <td>
@@ -100,6 +97,7 @@ else
                                         <span class="badge bg-warning text-dark">Overdue</span>
                                     } *@
                                 </td>
+                                <td>@step.Title</td>
                                 <td><small class="text-muted">@step.Comments</small></td>
                             </tr>
                         }

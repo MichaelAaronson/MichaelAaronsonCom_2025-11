@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Website.Models;
 
@@ -13,8 +14,8 @@ public partial class Step
 
     public bool IsComplete { get; set; }
 
-    public string Title { get; set; } = null!;
-
+    [Required]
+    public string Title { get; set; } = string.Empty;
     public string? Comments { get; set; }
 
     public int ProjectId { get; set; }

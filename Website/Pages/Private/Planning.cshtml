@@ -60,9 +60,9 @@ else
                                 <th style="width: 50px;"></th>
                                 <th style="width: 50px;"></th>
                                 <th style="width: 80px;">Priority</th>
-                                <th>Title</th>
                                 <th>Start Date</th>
                                 <th>Status</th>
+                                <th>Title</th>
                                 <th>Comments</th>
                             </tr>
                         </thead>
@@ -127,16 +127,6 @@ else
                                             @step.Priority
                                         }
                                     </td>
-                                    <td>
-                                        @if (step.IsComplete)
-                                        {
-                                            <s>@step.Title</s>
-                                        }
-                                        else
-                                        {
-                                            @step.Title
-                                        }
-                                    </td>
                                     <td>@step.StartDate.ToString("d MMM yyyy")</td>
                                     <td>
                                         @if (step.IsComplete)
@@ -150,6 +140,16 @@ else
                                         else
                                         {
                                             <span class="badge bg-secondary">Deferred</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (step.IsComplete)
+                                        {
+                                            <s>@step.Title</s>
+                                        }
+                                        else
+                                        {
+                                            @step.Title
                                         }
                                     </td>
                                     <td><small class="text-muted">@step.Comments</small></td>
