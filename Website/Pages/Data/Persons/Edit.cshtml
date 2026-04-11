@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Person.Notes" class="control-label"></label>
-                <input asp-for="Person.Notes" class="form-control" />
+                <textarea asp-for="Person.Notes" class="form-control" rows="5" style="resize: vertical;"></textarea>
                 <span asp-validation-for="Person.Notes" class="text-danger"></span>
             </div>
             <div class="form-group">
