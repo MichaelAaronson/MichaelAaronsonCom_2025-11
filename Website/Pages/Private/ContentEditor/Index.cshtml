@@ -1,0 +1,55 @@
+﻿@page
+@model Website.Pages.Private.ContentEditor.IndexModel
+
+@{
+    ViewData["Title"] = "Content Editor";
+}
+
+<h1>Content Editor</h1>
+
+<p>
+    <a asp-page="Edit" class="btn btn-primary">Create New Content Block</a>
+</p>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-info" style="max-width: 600px;">@Model.Message</div>
+}
+
+@if (Model.ContentBlocks.Count == 0)
+{
+    <p>No content blocks yet. Create one to get started.</p>
+}
+else
+{
+    <table class="table" style="max-width: 800px;">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Title</th>
+            <th>Last Modified</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var block in Model.ContentBlocks)
+        {
+            <tr>
+                <td style="vertical-align: middle;">
+                    <code>@block.Key</code>
+                </td>
+                <td style="vertical-align: middle;">@block.Title</td>
+                <td style="vertical-align: middle;">@block.LastModified.ToString("d MMM yyyy HH:mm")</td>
+                <td style="vertical-align: middle;">
+                    <a asp-page="Edit" asp-route-id="@block.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <form method="post" asp-page-handler="Delete" style="display:inline;">
+                        <input type="hidden" name="id" value="@block.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Delete content block \'@block.Key\'?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

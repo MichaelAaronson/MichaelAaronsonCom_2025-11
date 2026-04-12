@@ -1,0 +1,72 @@
+﻿@page "{id:int?}"
+@model Website.Pages.Private.ContentEditor.EditModel
+
+@{
+    ViewData["Title"] = Model.IsNew ? "Create Content Block" : "Edit Content Block";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form method="post" id="editForm">
+    <input type="hidden" asp-for="ContentBlock.Id" />
+
+    <div class="mb-3" style="max-width: 400px;">
+        <label asp-for="ContentBlock.Key" class="form-label">Key</label>
+        <input asp-for="ContentBlock.Key" class="form-control" placeholder="e.g. about-page, bio-intro" />
+        <div class="form-text">Unique identifier used to embed this content in pages.</div>
+        <span asp-validation-for="ContentBlock.Key" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3" style="max-width: 400px;">
+        <label asp-for="ContentBlock.Title" class="form-label">Title</label>
+        <input asp-for="ContentBlock.Title" class="form-control" placeholder="e.g. About Page Content" />
+        <span asp-validation-for="ContentBlock.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ContentBlock.MarkdownContent" class="form-label">Content (Markdown)</label>
+        <textarea asp-for="ContentBlock.MarkdownContent" id="markdownEditor"></textarea>
+        <span asp-validation-for="ContentBlock.MarkdownContent" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-info" style="max-width: 600px;">@Model.Message</div>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css" />
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    <script>
+        var easyMDE = new EasyMDE({
+        element: document.getElementById('markdownEditor'),
+        spellChecker: false,
+        autosave: {
+        enabled: false
+        },
+        toolbar: [
+        "bold", "italic", "heading", "|",
+        "quote", "unordered-list", "ordered-list", "|",
+        "link", "image", "|",
+        "preview", "side-by-side", "fullscreen", "|",
+        "guide"
+        ],
+        minHeight: "300px",
+        status: ["lines", "words"],
+        renderingConfig: {
+        singleLineBreaks: false
+        }
+        });
+    </script>
+}
