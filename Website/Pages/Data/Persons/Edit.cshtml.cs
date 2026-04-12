@@ -20,23 +20,30 @@ namespace Website.Pages.Persons
         [BindProperty]
         public List<int> SelectedGroupIds { get; set; } = new();
 
+        [BindProperty]
+        public int? SelectedImageId { get; set; }
+
         public List<Group> AllGroups { get; set; } = new();
+        public List<Image> AllImages { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
             var person = await _context.Person
                 .Include(p => p.PersonGroups)
+                .Include(p => p.PersonImages)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (person == null)
-                return NotFound();
+            if (person == null) return NotFound();
 
             Person = person;
             AllGroups = await _context.Group.OrderBy(g => g.Name).ToListAsync();
+            AllImages = await _context.Image.OrderBy(i => i.Description).ToListAsync();
             SelectedGroupIds = person.PersonGroups.Select(pg => pg.GroupId).ToList();
+            SelectedImageId = person.PersonImages
+                .FirstOrDefault(pi => pi.IsMainImage)?.ImageId
+                ?? person.PersonImages.FirstOrDefault()?.ImageId;
 
             return Page();
         }
@@ -46,15 +53,16 @@ namespace Website.Pages.Persons
             if (!ModelState.IsValid)
             {
                 AllGroups = await _context.Group.OrderBy(g => g.Name).ToListAsync();
+                AllImages = await _context.Image.OrderBy(i => i.Description).ToListAsync();
                 return Page();
             }
 
             var personToUpdate = await _context.Person
                 .Include(p => p.PersonGroups)
+                .Include(p => p.PersonImages)
                 .FirstOrDefaultAsync(p => p.Id == Person.Id);
 
-            if (personToUpdate == null)
-                return NotFound();
+            if (personToUpdate == null) return NotFound();
 
             // Update scalar properties
             personToUpdate.FirstName = Person.FirstName;
@@ -76,7 +84,20 @@ namespace Website.Pages.Persons
                 });
             }
 
+            // Update main image
+            personToUpdate.PersonImages.Clear();
+            if (SelectedImageId.HasValue)
+            {
+                personToUpdate.PersonImages.Add(new PersonImage
+                {
+                    PersonId = Person.Id,
+                    ImageId = SelectedImageId.Value,
+                    IsMainImage = true
+                });
+            }
+
             await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
         }
     }

@@ -1,42 +1,51 @@
-﻿@page
-@model Website.Pages.Data.PersonImages.CreateModel
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Website.Data;
+using Website.Models;
 
-        @{
-        ViewData["Title"] = "Create";
-        }
-        
-        <h1>Create</h1>
-        
-    <h4>PersonImage</h4>
-    <hr />
-    <div class="row">
-    <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PersonImage.PersonId" class="control-label"></label>
-                <select asp-for="PersonImage.PersonId" class ="form-control" asp-items="ViewBag.PersonId" ></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonImage.ImageId" class="control-label"></label>
-                <select asp-for="PersonImage.ImageId" class ="form-control" asp-items="ViewBag.ImageId" ></select>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PersonImage.IsMainImage" /> @Html.DisplayNameFor(model => model.PersonImage.IsMainImage)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+namespace Website.Pages.Data.PersonImages
+{
+public class CreateModel : PageModel
+{
+private readonly Website.Data.WebsiteContext _context;
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+public CreateModel(Website.Data.WebsiteContext context)
+{
+_context = context;
+}
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+public IActionResult OnGet()
+{
+ViewData["ImageId"] = new SelectList(_context.Image, "Id", "Location");
+ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id");
+return Page();
+}
+
+[BindProperty]
+public PersonImage PersonImage { get; set; } = default!;
+
+public async Task<IActionResult> OnPostAsync()
+{
+// Remove navigation properties from validation
+ModelState.Remove("PersonImage.Person");
+ModelState.Remove("PersonImage.Image");
+
+if (!ModelState.IsValid)
+{
+ViewData["ImageId"] = new SelectList(_context.Image, "Id", "Location");
+ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id");
+return Page();
+}
+
+_context.PersonImage.Add(PersonImage);
+await _context.SaveChangesAsync();
+
+return RedirectToPage("./Index");
+}
+}
 }
