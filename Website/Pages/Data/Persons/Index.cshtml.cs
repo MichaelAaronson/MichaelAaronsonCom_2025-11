@@ -31,21 +31,24 @@ namespace Website.Pages.Persons
             var groups = await _context.Group.OrderBy(g => g.Name).ToListAsync();
             GroupOptions = new SelectList(groups, "Id", "Name");
 
+            IQueryable<Person> query = _context.Person;
+
             if (GroupId.HasValue)
             {
-                Person = await _context.Person
-                    .Where(p => p.PersonGroups.Any(pg => pg.GroupId == GroupId))
-                    .OrderBy(p => p.FirstName)
-                    .ThenBy(p => p.LastName)
-                    .ToListAsync();
+                query = query.Where(p => p.PersonGroups.Any(pg => pg.GroupId == GroupId));
             }
-            else
+
+            if (ViewMode == "cards")
             {
-                Person = await _context.Person
-                    .OrderBy(p => p.FirstName)
-                    .ThenBy(p => p.LastName)
-                    .ToListAsync();
+                query = query
+                    .Include(p => p.PersonImages)
+                    .ThenInclude(pi => pi.Image);
             }
+
+            Person = await query
+                .OrderBy(p => p.FirstName)
+                .ThenBy(p => p.LastName)
+                .ToListAsync();
         }
     }
 }

@@ -39,7 +39,7 @@
 @if (Model.ViewMode == "cards")
 {
     <p class="text-muted">@Model.Person.Count person(s)</p>
-    
+
     @if (Model.Person.Any())
     {
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
@@ -47,13 +47,14 @@
             {
                 <div class="col">
                     <div class="card h-100">
-                        @if (!string.IsNullOrEmpty(person.ImageFilename))
+                        @{
+                            var mainImage = person.PersonImages?
+                                .FirstOrDefault(pi => pi.IsMainImage)?.Image
+                                ?? person.PersonImages?.FirstOrDefault()?.Image;
+                        }
+                        @if (mainImage != null)
                         {
-                            @* <img src="~/Images/Persons/@person.ImageFilename" 
-                                 class="card-img-top" 
-                                 alt="@person.FirstName @person.LastName"
-                                 style="height: 200px; object-fit: cover;"> *@
-                            <img src="~/Images/Persons/@person.ImageFilename"
+                            <img src="@mainImage.Location"
                                  alt="@person.FirstName @person.LastName"
                                  width="200">
                         }
@@ -111,43 +112,38 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.Person[0].Notes)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Person[0].ImageFilename)
-                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model.Person) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageFilename)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-    }
+            @foreach (var item in Model.Person)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }

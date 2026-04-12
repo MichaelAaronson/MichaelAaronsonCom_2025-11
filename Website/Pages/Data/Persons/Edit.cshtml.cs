@@ -71,7 +71,6 @@ namespace Website.Pages.Persons
             personToUpdate.Email = Person.Email;
             personToUpdate.Phone = Person.Phone;
             personToUpdate.Notes = Person.Notes;
-            personToUpdate.ImageFilename = Person.ImageFilename;
 
             // Update group memberships
             personToUpdate.PersonGroups.Clear();
