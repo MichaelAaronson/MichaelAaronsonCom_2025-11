@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Website.Data;
 using Website.Models;
 
 namespace Website.Pages.Persons
@@ -20,6 +15,7 @@ namespace Website.Pages.Persons
         }
 
         public Person Person { get; set; } = default!;
+        public Image? MainImage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +24,17 @@ namespace Website.Pages.Persons
                 return NotFound();
             }
 
-            var person = await _context.Person.FirstOrDefaultAsync(m => m.Id == id);
+            var person = await _context.Person
+                .Include(p => p.PersonImages)
+                .ThenInclude(pi => pi.Image)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (person is not null)
             {
                 Person = person;
-
+                MainImage = person.PersonImages
+                                .FirstOrDefault(pi => pi.IsMainImage)?.Image
+                            ?? person.PersonImages.FirstOrDefault()?.Image;
                 return Page();
             }
 
