@@ -20,6 +20,9 @@ namespace Website.Pages.Private
         [BindProperty(SupportsGet = true)]
         public bool ShowCompleted { get; set; } = false;
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchText { get; set; }
+
         // Domain -> Projects -> Steps hierarchy
         public List<DomainGroup> Domains { get; set; } = [];
 
@@ -56,6 +59,17 @@ namespace Website.Pages.Private
                 .OrderBy(s => s.Priority)
                 .ThenBy(s => s.StartDate)
                 .ToListAsync();
+
+            // Apply search filter
+            var searchTrimmed = SearchText?.Trim();
+            if (!string.IsNullOrEmpty(searchTrimmed))
+            {
+                allSteps = allSteps
+                    .Where(s => (s.Title?.Contains(searchTrimmed, StringComparison.OrdinalIgnoreCase) ?? false)
+                                || (s.Comments?.Contains(searchTrimmed, StringComparison.OrdinalIgnoreCase) ?? false)
+                                || (s.Project?.Title?.Contains(searchTrimmed, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .ToList();
+            }
 
             // Group by Domain then Project
             Domains = allSteps
@@ -111,7 +125,7 @@ namespace Website.Pages.Private
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage(new { ShowCompleted });
+            return RedirectToPage(new { ShowCompleted, SearchText });
         }
 
         public async Task<IActionResult> OnPostChangePriorityAsync(
@@ -125,7 +139,7 @@ namespace Website.Pages.Private
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage(new { ShowCompleted });
+            return RedirectToPage(new { ShowCompleted, SearchText });
         }
     }
 }

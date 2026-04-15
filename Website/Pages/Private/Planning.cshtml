@@ -10,9 +10,19 @@
     <br /><a asp-page="/Private/DailyTasks">DailyTasks</a>
 </p>
 
-<!-- Show completed filter -->
+<!-- Search and filter controls -->
 <div class="mb-3">
-    <form method="get" class="d-inline-flex align-items-center gap-2">
+    <form method="get" class="d-flex align-items-center gap-3 flex-wrap">
+        <div class="input-group" style="max-width: 300px;">
+            <input type="text" class="form-control form-control-sm" name="SearchText"
+                   value="@Model.SearchText" placeholder="Search steps..." />
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Search</button>
+            @if (!string.IsNullOrEmpty(Model.SearchText))
+            {
+                <a asp-page="/Private/Planning" asp-route-ShowCompleted="@Model.ShowCompleted"
+                   class="btn btn-sm btn-outline-danger" title="Clear search">&times;</a>
+            }
+        </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="ShowCompleted"
                    name="ShowCompleted" value="true"
@@ -32,7 +42,13 @@
 }
 else
 {
-    <p><strong>@Model.TotalSteps</strong> step@(Model.TotalSteps != 1 ? "s" : "")</p>
+    <p>
+        <strong>@Model.TotalSteps</strong> step@(Model.TotalSteps != 1 ? "s" : "")
+        @if (!string.IsNullOrEmpty(Model.SearchText))
+        {
+            <span class="text-muted"> matching &ldquo;@Model.SearchText&rdquo;</span>
+        }
+    </p>
 
     @foreach (var domain in Model.Domains)
     {
@@ -94,6 +110,7 @@ else
                                             <form method="post" asp-page-handler="Complete">
                                                 <input type="hidden" name="id" value="@step.Id" />
                                                 <input type="hidden" name="ShowCompleted" value="@Model.ShowCompleted" />
+                                                <input type="hidden" name="SearchText" value="@Model.SearchText" />
                                                 <div class="form-check form-switch d-flex justify-content-center mb-0">
                                                     <input class="form-check-input" type="checkbox" role="switch"
                                                            title="Mark complete"
@@ -112,6 +129,7 @@ else
                                             <form method="post" asp-page-handler="ChangePriority">
                                                 <input type="hidden" name="id" value="@step.Id" />
                                                 <input type="hidden" name="ShowCompleted" value="@Model.ShowCompleted" />
+                                                <input type="hidden" name="SearchText" value="@Model.SearchText" />
                                                 <select name="newPriority" class="form-select form-select-sm"
                                                         style="width: 70px;"
                                                         onchange="this.closest('form').submit();">
