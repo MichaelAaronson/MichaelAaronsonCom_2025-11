@@ -22,7 +22,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Step.StartDate" class="control-label"></label>
-                <input asp-for="Step.StartDate" class="form-control" />
+                <input asp-for="Step.StartDate" type="date" class="form-control"
+                       value="@Model.Step.StartDate.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="Step.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

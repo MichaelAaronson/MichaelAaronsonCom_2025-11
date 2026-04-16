@@ -21,7 +21,8 @@ namespace Website.Pages.Private.Steps
 
         public IActionResult OnGet()
         {
-        ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
+            ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
+            Step = new Step { StartDate = DateOnly.FromDateTime(DateTime.Today) };
             return Page();
         }
 
