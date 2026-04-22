@@ -7,8 +7,13 @@
 <h1>Daily Tasks</h1>
 <p class="text-muted">
     Showing incomplete steps with start date on or before @DateOnly.FromDateTime(DateTime.Today).ToString("d MMMM yyyy")
+    <br /><a asp-page="/Private/Planning">Planning</a>
 </p>
 
+<!-- New Step button -->
+<div class="mb-3">
+    <a asp-page="/Data/Steps/Create" class="btn btn-sm btn-success">+ New Step</a>
+</div>
 <!-- Priority filter -->
 <div class="mb-3">
     <form method="get" class="d-inline-flex align-items-center gap-2">

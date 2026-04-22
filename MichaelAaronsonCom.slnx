@@ -9,5 +9,4 @@
     <Deploy />
   </Project>
   <Project Path="Website/Website.csproj" />
-  <Project Path="WebsiteTest/Website.Tests.csproj" Id="043589ad-c3e8-4ef6-a360-2208808e7ea0" />
 </Solution>
