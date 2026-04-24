@@ -80,7 +80,12 @@ namespace Website.Data
                     .HasForeignKey(pi => pi.ImageId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
-            }
+            modelBuilder.Entity<Step>()
+                .HasOne(s => s.Domain)
+                .WithMany(d => d.Steps)
+                .HasForeignKey(s => s.DomainId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
 
         public DbSet<Website.Models.JobDetail> JobDetail { get; set; } = default!;
         public DbSet<Website.Models.JobSkill> JobSkill { get; set; } = default!;

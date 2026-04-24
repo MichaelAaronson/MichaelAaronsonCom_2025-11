@@ -21,6 +21,6 @@ public partial class Step
     public int ProjectId { get; set; }
     public Project? Project { get; set; } = null;
 
-    public int? DomainId { get; set; }
+    public int DomainId { get; set; }
     public Domain? Domain { get; set; } = null;
 }
