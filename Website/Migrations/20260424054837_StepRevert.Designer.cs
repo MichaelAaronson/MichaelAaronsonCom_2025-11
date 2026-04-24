@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Website.Data;
 
@@ -11,9 +12,11 @@ using Website.Data;
 namespace Website.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    partial class WebsiteContextModelSnapshot : ModelSnapshot
+    [Migration("20260424054837_StepRevert")]
+    partial class StepRevert
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -402,9 +405,6 @@ namespace Website.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DomainId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsComplete")
                         .HasColumnType("bit");
 
@@ -422,8 +422,6 @@ namespace Website.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DomainId");
 
                     b.HasIndex("ProjectId");
 
@@ -515,17 +513,11 @@ namespace Website.Migrations
 
             modelBuilder.Entity("Website.Models.Step", b =>
                 {
-                    b.HasOne("Website.Models.Domain", "Domain")
-                        .WithMany("Steps")
-                        .HasForeignKey("DomainId");
-
                     b.HasOne("Website.Models.Project", "Project")
                         .WithMany("Steps")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Domain");
 
                     b.Navigation("Project");
                 });
@@ -533,8 +525,6 @@ namespace Website.Migrations
             modelBuilder.Entity("Website.Models.Domain", b =>
                 {
                     b.Navigation("Projects");
-
-                    b.Navigation("Steps");
                 });
 
             modelBuilder.Entity("Website.Models.Goal", b =>

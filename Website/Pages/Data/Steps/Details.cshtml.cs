@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Private.Steps
+namespace Website.Pages_Data_Steps
 {
     public class DetailsModel : PageModel
     {

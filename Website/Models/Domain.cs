@@ -11,4 +11,5 @@ public partial class Domain
 
     public string? Description { get; set; }
     public ICollection<Project> Projects { get; set; } = [];
+    public ICollection<Step> Steps { get; set; } = [];
 }

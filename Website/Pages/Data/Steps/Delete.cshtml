@@ -1,5 +1,5 @@
-﻿@page
-@model Website.Pages.Private.Steps.DeleteModel
+@page
+@model Website.Pages_Data_Steps.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -46,7 +46,13 @@
             @Html.DisplayNameFor(model => model.Step.Project)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Step.Project!.Id)
+            @Html.DisplayFor(model => model.Step.Project.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Step.Domain)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Step.Domain.Id)
         </dd>
     </dl>
     

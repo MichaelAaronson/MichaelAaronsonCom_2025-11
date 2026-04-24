@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Private.Steps
+namespace Website.Pages_Data_Steps
 {
     public class CreateModel : PageModel
     {
@@ -21,8 +21,8 @@ namespace Website.Pages.Private.Steps
 
         public IActionResult OnGet()
         {
-            ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
-            Step = new Step { StartDate = DateOnly.FromDateTime(DateTime.Today) };
+        ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Title");
+        ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
             return Page();
         }
 

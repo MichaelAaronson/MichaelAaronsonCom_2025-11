@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Website.Data;
 using Website.Models;
 
-namespace Website.Pages.Private.Steps
+namespace Website.Pages_Data_Steps
 {
     public class EditModel : PageModel
     {
@@ -22,9 +22,6 @@ namespace Website.Pages.Private.Steps
 
         [BindProperty]
         public Step Step { get; set; } = default!;
-
-        [BindProperty(SupportsGet = true)]
-        public string? ReturnUrl { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -39,6 +36,7 @@ namespace Website.Pages.Private.Steps
                 return NotFound();
             }
             Step = step;
+           ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Title");
            ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
             return Page();
         }
@@ -49,7 +47,6 @@ namespace Website.Pages.Private.Steps
         {
             if (!ModelState.IsValid)
             {
-                ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
                 return Page();
             }
 
@@ -71,10 +68,6 @@ namespace Website.Pages.Private.Steps
                 }
             }
 
-            if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
-            {
-                return Redirect(ReturnUrl);
-            }
             return RedirectToPage("./Index");
         }
 
