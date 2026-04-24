@@ -28,8 +28,10 @@ namespace Website.Pages_Data_Steps
                 return NotFound();
             }
 
-            var step = await _context.Step.FirstOrDefaultAsync(m => m.Id == id);
-
+            var step = await _context.Step
+                .Include(s => s.Project)
+                .Include(s => s.Domain)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (step is not null)
             {
                 Step = step;
