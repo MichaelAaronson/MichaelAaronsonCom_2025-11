@@ -18,7 +18,7 @@ public partial class Step
     public string Title { get; set; } = string.Empty;
     public string? Comments { get; set; }
 
-    public int ProjectId { get; set; }
+    public int? ProjectId { get; set; }
     public Project? Project { get; set; } = null;
 
     public int DomainId { get; set; }
