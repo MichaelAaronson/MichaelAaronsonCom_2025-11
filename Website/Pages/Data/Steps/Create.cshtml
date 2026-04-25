@@ -1,18 +1,18 @@
 @page
-@model Website.Pages_Data_Steps.CreateModel
+@model Website.Pages.StepPages.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
-        
-        <h1>Create</h1>
-        
-    <h4>Step</h4>
-    <hr />
-    <div class="row">
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Step</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Step.Priority" class="control-label"></label>
                 <input asp-for="Step.Priority" class="form-control" />
@@ -23,10 +23,10 @@
                 <input asp-for="Step.StartDate" class="form-control" />
                 <span asp-validation-for="Step.StartDate" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Step.IsComplete" /> @Html.DisplayNameFor(model => model.Step.IsComplete)
-                </label>
+            <div class="form-group">
+                <label asp-for="Step.IsComplete" class="control-label"></label>
+                <input asp-for="Step.IsComplete" class="form-check-input" />
+                <span asp-validation-for="Step.IsComplete" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
@@ -41,11 +41,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="Step.ProjectId" class="control-label"></label>
-                <select asp-for="Step.ProjectId" class ="form-control" asp-items="ViewBag.ProjectId" ></select>
+                <input asp-for="Step.ProjectId" class="form-control" />
+                <span asp-validation-for="Step.ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.Project" class="control-label"></label>
+                <input asp-for="Step.Project" class="form-control" />
+                <span asp-validation-for="Step.Project" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Step.DomainId" class="control-label"></label>
-                <select asp-for="Step.DomainId" class ="form-control" asp-items="ViewBag.DomainId" ></select>
+                <input asp-for="Step.DomainId" class="form-control" />
+                <span asp-validation-for="Step.DomainId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step.Domain" class="control-label"></label>
+                <input asp-for="Step.Domain" class="form-control" />
+                <span asp-validation-for="Step.Domain" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -55,7 +67,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

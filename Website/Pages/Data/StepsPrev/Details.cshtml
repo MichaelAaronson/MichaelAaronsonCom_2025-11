@@ -1,5 +1,5 @@
 @page
-@model Website.Pages.StepPages.DetailsModel
+@model Website.Pages_Data_Steps.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,59 +11,47 @@
     <h4>Step</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.Priority)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Step.Priority)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.StartDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Step.StartDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.IsComplete)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Step.IsComplete)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Step.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.Comments)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Step.Comments)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Step.ProjectId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Step.ProjectId)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.Project)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Step.Project)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Step.Project.Title)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Step.DomainId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Step.DomainId)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Step.Domain)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Step.Domain)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Step.Domain.Title)
         </dd>
     </dl>
 </div>

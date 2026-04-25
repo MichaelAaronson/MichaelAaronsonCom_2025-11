@@ -1,46 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Website.Data;
+using Microsoft.EntityFrameworkCore;
 using Website.Models;
+using Website.Data;
 
-namespace Website.Pages_Data_Steps
+namespace Website.Pages.StepPages;
+
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly WebsiteContext _context;
+
+    public CreateModel(WebsiteContext context)
     {
-        private readonly Website.Data.WebsiteContext _context;
+        _context = context;
+    }
 
-        public CreateModel(Website.Data.WebsiteContext context)
-        {
-            _context = context;
-        }
+    public IActionResult OnGet()
+    {
+        return Page();
+    }
 
-        public IActionResult OnGet()
+    [BindProperty]
+    public Step Step { get; set; } = default!;
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
         {
-        ViewData["DomainId"] = new SelectList(_context.Domain, "Id", "Title");
-        ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Title");
             return Page();
         }
 
-        [BindProperty]
-        public Step Step { get; set; } = default!;
+        _context.Step.Add(Step);
+        await _context.SaveChangesAsync();
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Step.Add(Step);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

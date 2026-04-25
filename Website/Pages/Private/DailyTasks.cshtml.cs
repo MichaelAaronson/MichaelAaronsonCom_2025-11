@@ -33,8 +33,7 @@ namespace Website.Pages.Private.Steps
             var today = DateOnly.FromDateTime(DateTime.Today);
 
             var query = _context.Step
-                .Include(s => s.Project)
-                    .ThenInclude(p => p!.Domain)
+                .Include(s => s.Domain)
                 .Include(s => s.Project)
                     .ThenInclude(p => p!.Goal)
                 .Where(s => s.StartDate <= today && !s.IsComplete);

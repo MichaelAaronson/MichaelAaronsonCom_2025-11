@@ -50,7 +50,9 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Data\Steps\" />
+    <Folder Include="Pages\Data\StepsPlay\" />
+    <Folder Include="Pages\Data\PlayNumbers\" />
+    <Folder Include="Pages\Data\StepsPrev\" />
     <Folder Include="Pages\Private\GroupsPlay\" />
     <Folder Include="Pages\Public\" />
     <Folder Include="Services\" />

@@ -52,14 +52,12 @@ namespace Website.Pages.Private
 
             // Always load all steps for accurate counts
             var allSteps = await _context.Step
+                .Include(s => s.Domain)
                 .Include(s => s.Project)
-                    .ThenInclude(p => p!.Domain)
-                .Include(s => s.Project)
-                    .ThenInclude(p => p!.Goal)
+                .ThenInclude(p => p!.Goal)
                 .OrderBy(s => s.Priority)
                 .ThenBy(s => s.StartDate)
                 .ToListAsync();
-
             // Apply search filter
             var searchTrimmed = SearchText?.Trim();
             if (!string.IsNullOrEmpty(searchTrimmed))
@@ -73,7 +71,7 @@ namespace Website.Pages.Private
 
             // Group by Domain then Project
             Domains = allSteps
-                .GroupBy(s => s.Project?.Domain?.Title ?? "(No Domain)")
+                .GroupBy(s => s.Domain?.Title ?? "(No Domain)")
                 .OrderBy(g => g.Key)
                 .Select(domainGroup => new DomainGroup
                 {
@@ -85,8 +83,8 @@ namespace Website.Pages.Private
                             ProjectTitle = s.Project?.Title ?? "(No Project)",
                             GoalTitle = s.Project?.Goal?.Title
                         })
-                        .OrderBy(g => g.Key.ProjectTitle)
-                        .Select(projGroup =>
+                        .OrderBy(g => g.Key.ProjectId == 0 ? 1 : 0)
+                        .ThenBy(g => g.Key.ProjectTitle).Select(projGroup =>
                         {
                             var allProjectSteps = projGroup.ToList();
                             // Filter for display only
