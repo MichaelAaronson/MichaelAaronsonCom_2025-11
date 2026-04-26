@@ -64,7 +64,7 @@ else
                             var isOverdue = step.StartDate < DateOnly.FromDateTime(DateTime.Today);
                             <tr class="@(isOverdue ? "table-warning" : "")">
                                 <td class="text-center">
-                                    <a asp-page="/Data/Steps/Edit" asp-route-id="@step.Id" asp-route-returnurl="/Private/DailyTasks" class="btn btn-sm btn-outline-primary" title="Edit">
+                                    <a asp-page="/Private/Steps/Edit" asp-route-id="@step.Id" asp-route-returnurl="/Private/DailyTasks" class="btn btn-sm btn-outline-primary" title="Edit">
                                         &#x270E;
                                     </a>
                                 </td>
