@@ -100,7 +100,7 @@ public class EditModel : PageModel
             throw;
         }
 
-        return Redirect(string.IsNullOrEmpty(ReturnUrl) ? "/Data/Steps" : ReturnUrl);
+        return Redirect(string.IsNullOrEmpty(ReturnUrl) ? "/Private/Steps" : ReturnUrl);
     }
 
     private async Task PopulateDropdownsAsync()

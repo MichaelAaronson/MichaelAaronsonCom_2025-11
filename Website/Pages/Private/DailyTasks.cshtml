@@ -12,7 +12,9 @@
 
 <!-- New Step button -->
 <div class="mb-3">
-    <a asp-page="/Data/Steps/Create" class="btn btn-sm btn-success">+ New Step</a>
+    <a asp-page="/Private/Steps/Create"
+       asp-route-returnurl="/Private/DailyTasks"
+       class="btn btn-sm btn-success">+ New Step</a>
 </div>
 <!-- Priority filter -->
 <div class="mb-3">
