@@ -103,6 +103,25 @@ public class EditModel : PageModel
         return Redirect(string.IsNullOrEmpty(ReturnUrl) ? "/Private/Steps" : ReturnUrl);
     }
 
+    public async Task<IActionResult> OnPostDeleteAsync(int? id)
+    {
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var step = await _context.Step.FirstOrDefaultAsync(s => s.Id == id);
+        if (step is null)
+        {
+            return NotFound();
+        }
+
+        _context.Step.Remove(step);
+        await _context.SaveChangesAsync();
+
+        return Redirect(string.IsNullOrEmpty(ReturnUrl) ? "/Private/Steps" : ReturnUrl);
+    }
+
     private async Task PopulateDropdownsAsync()
     {
         var domains = await _context.Domain
