@@ -1,5 +1,5 @@
 @page
-@model Website.Pages_Data_Steps.IndexModel
+@model Website.Pages.StepPages.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -26,46 +26,57 @@
                 @Html.DisplayNameFor(model => model.Step[0].Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Step[0].Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Step[0].ProjectId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Step[0].Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Step[0].DomainId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Step[0].Domain)
             </th>
             <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.Step[0].Comments)
-            </th>
-
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Step) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Priority)
+                @Html.DisplayFor(model => item.Priority)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @Html.DisplayFor(model => item.StartDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsComplete)
+                @Html.DisplayFor(model => item.IsComplete)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(model => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Project.Title)
+                @Html.DisplayFor(model => item.Comments)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Domain.Title)
+                @Html.DisplayFor(model => item.ProjectId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Project)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DomainId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Domain)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
             </td>
         </tr>
 }
