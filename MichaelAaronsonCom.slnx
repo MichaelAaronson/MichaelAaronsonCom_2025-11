@@ -8,5 +8,6 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="Play/Play.csproj" Id="d08cd976-27c0-4856-8162-0795193df48b" />
   <Project Path="Website/Website.csproj" />
 </Solution>

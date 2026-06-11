@@ -37,8 +37,8 @@
     @foreach (var item in Model.PlayNumbers)
     {
         <div class="grid-row">
-            <div>@item.Name</div>
-            <div>@item.Value</div>
+            <div data-label="Name">@item.Name</div>
+            <div data-label="Value">@item.Value</div>
             <div><a href="#">Edit</a></div>
         </div>
     }

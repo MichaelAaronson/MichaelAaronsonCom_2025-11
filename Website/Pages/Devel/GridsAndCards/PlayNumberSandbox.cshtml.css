@@ -3,7 +3,6 @@
 .grid-list {
     container-type: inline-size; /* NEW: this element is now a query context */
     container-name: gridlist; /* NEW: a name so the @container rule can target it */
-
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -27,11 +26,17 @@
 
 @container gridlist (max-width: 28rem) {
     .grid-row {
-        grid-template-columns: 1fr; /* collapse 3 tracks → 1: cells stack vertically */
+        grid-template-columns: 1fr;
         gap: 0.25rem;
     }
 
+        .grid-row > [data-label]::before {
+            content: attr(data-label) ": "; /* pull the label out of the markup */
+            font-weight: 600;
+            margin-right: 0.25rem;
+        }
+
     .grid-head {
-        display: none; /* column labels are meaningless once cells stack */
+        display: none;
     }
 }
