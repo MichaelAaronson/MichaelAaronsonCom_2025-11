@@ -75,109 +75,117 @@ else
                         <span class="badge bg-secondary">@project.StepsDeferred deferred</span>
                     </span>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th style="width: 50px;"></th>
-                                <th style="width: 50px;"></th>
-                                <th style="width: 80px;">Priority</th>
-                                <th>Start Date</th>
-                                <th>Status</th>
-                                <th>Title</th>
-                                <th>Comments</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{
+                <div class="card-body">
+                    <div class="step-list">
+                        <div class="step-head">
+                            <div></div>
+                            <div></div>
+                            <div>Priority</div>
+                            <div>Start</div>
+                            <div>Status</div>
+                            <div>Title</div>
+                            <div>Comments</div>
+                        </div>
+
+                        @{
                                 var today = DateOnly.FromDateTime(DateTime.Today);
                             }
                             @foreach (var step in project.Steps)
                             {
                                 var isActive = !step.IsComplete && step.StartDate <= today;
                                 var isDeferred = !step.IsComplete && step.StartDate > today;
-                                var rowClass = step.IsComplete ? "table-light text-muted" : isActive ? "" : "text-muted";
-                                <tr class="@rowClass">
-                                    <td class="text-center">
-                                        <a asp-page="/Private/Steps/Edit"
-                                               asp-route-id="@step.Id"
-                                               asp-route-returnurl="/Private/Planning"
-                                               class="btn btn-sm btn-outline-primary"
-                                               title="Edit">
-                                            &#x270E;
-                                        </a>
-                                    </td>
-                                    <td class="text-center">
-                                        @if (!step.IsComplete)
-                                        {
-                                            <form method="post" asp-page-handler="Complete">
-                                                <input type="hidden" name="id" value="@step.Id" />
-                                                <input type="hidden" name="ShowCompleted" value="@Model.ShowCompleted" />
-                                                <input type="hidden" name="SearchText" value="@Model.SearchText" />
-                                                <div class="form-check form-switch d-flex justify-content-center mb-0">
-                                                    <input class="form-check-input" type="checkbox" role="switch"
-                                                           title="Mark complete"
-                                                           onchange="if(confirm('Mark this task as complete?')) { this.closest('form').submit(); } else { this.checked = false; }" />
-                                                </div>
-                                            </form>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-success">&#x2714;</span>
-                                        }
-                                    </td>
-                                    <td class="text-center">
-                                        @if (!step.IsComplete)
-                                        {
-                                            <form method="post" asp-page-handler="ChangePriority">
-                                                <input type="hidden" name="id" value="@step.Id" />
-                                                <input type="hidden" name="ShowCompleted" value="@Model.ShowCompleted" />
-                                                <input type="hidden" name="SearchText" value="@Model.SearchText" />
-                                                <select name="newPriority" class="form-select form-select-sm"
-                                                        style="width: 70px;"
-                                                        onchange="this.closest('form').submit();">
-                                                    @for (int p = 1; p <= 5; p++)
-                                                    {
-                                                        <option value="@p" selected="@(step.Priority == p ? "selected" : null)">@p</option>
-                                                    }
-                                                </select>
-                                            </form>
-                                        }
-                                        else
-                                        {
-                                            @step.Priority
-                                        }
-                                    </td>
-                                    <td>@step.StartDate.ToString("d MMM yyyy")</td>
-                                    <td>
-                                        @if (step.IsComplete)
-                                        {
-                                            <span class="badge bg-success">Complete</span>
-                                        }
-                                        else if (isActive)
-                                        {
-                                            <span class="badge bg-primary">Active</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-secondary">Deferred</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (step.IsComplete)
-                                        {
-                                            <s>@step.Title</s>
-                                        }
-                                        else
-                                        {
-                                            @step.Title
-                                        }
-                                    </td>
-                                    <td><small class="text-muted">@step.Comments</small></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                var statusClass = step.IsComplete ? "step-row--complete"
+                                    : isActive ? "step-row--active"
+                                    : "step-row--deferred";
+
+                            <div class="step-row @statusClass">
+                                <div class="cell-action" data-label="">
+                                    <a asp-page="/Private/Steps/Edit"
+                                       asp-route-id="@step.Id"
+                                       asp-route-returnurl="/Private/Planning"
+                                       class="btn btn-sm btn-outline-primary"
+                                       title="Edit">
+                                        &#x270E;
+                                    </a>
+                                </div>
+
+                                <div class="cell-action" data-label="">
+                                    @if (!step.IsComplete)
+                                    {
+                                        <form method="post" asp-page-handler="Complete">
+                                            <input type="hidden" name="id" value="@step.Id" />
+                                            <input type="hidden" name="ShowCompleted" value="@Model.ShowCompleted" />
+                                            <input type="hidden" name="SearchText" value="@Model.SearchText" />
+                                            <div class="form-check form-switch d-flex justify-content-center mb-0">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                       title="Mark complete"
+                                                       onchange="if(confirm('Mark this task as complete?')) { this.closest('form').submit(); } else { this.checked = false; }" />
+                                            </div>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">&#x2714;</span>
+                                    }
+                                </div>
+
+                                <div data-label="Priority">
+                                    @if (!step.IsComplete)
+                                    {
+                                        <form method="post" asp-page-handler="ChangePriority">
+                                            <input type="hidden" name="id" value="@step.Id" />
+                                            <input type="hidden" name="ShowCompleted" value="@Model.ShowCompleted" />
+                                            <input type="hidden" name="SearchText" value="@Model.SearchText" />
+                                            <select name="newPriority" class="form-select form-select-sm"
+                                                    style="width: 70px;"
+                                                    onchange="this.closest('form').submit();">
+                                                @for (int p = 1; p <= 5; p++)
+                                                {
+                                                    <option value="@p" selected="@(step.Priority == p ? "selected" : null)">@p</option>
+                                                }
+                                            </select>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        @step.Priority
+                                    }
+                                </div>
+
+                                <div data-label="Start">@step.StartDate.ToString("d MMM yyyy")</div>
+
+                                <div data-label="Status">
+                                    @if (step.IsComplete)
+                                    {
+                                        <span class="badge bg-success">Complete</span>
+                                    }
+                                    else if (isActive)
+                                    {
+                                        <span class="badge bg-primary">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Deferred</span>
+                                    }
+                                </div>
+
+                                <div data-label="Title">
+                                    @if (step.IsComplete)
+                                    {
+                                        <s>@step.Title</s>
+                                    }
+                                    else
+                                    {
+                                        @step.Title
+                                    }
+                                </div>
+
+                                <div data-label="Comments">
+                                    <small class="text-muted">@step.Comments</small>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         }
