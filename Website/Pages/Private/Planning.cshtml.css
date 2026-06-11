@@ -1,0 +1,15 @@
+/* CSS for Planning view */
+.step-list {
+    container-type: inline-size;
+    container-name: steplist;
+    display: flex;
+    flex-direction: column;
+}
+
+.step-head,
+.step-row {
+    display: grid;
+    grid-template-columns: 2.5rem 3rem 5rem 7rem 6rem 1.5fr 1fr;
+    align-items: center;
+    gap: 0.5rem;
+}
