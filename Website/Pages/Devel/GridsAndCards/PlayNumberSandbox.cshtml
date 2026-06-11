@@ -1,0 +1,46 @@
+﻿@page
+@model Website.Pages.Devel.GridsAndCards.PlayNumberSandboxModel
+@using Website.Models
+@{
+    ViewData["Title"] = "PlayNumber Sandbox";
+}
+
+<h1>PlayNumber Sandbox</h1>
+<p class="text-muted">Scratch page for building the grid &amp; card layout. Sample data only — no database.</p>
+
+@* <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.PlayNumbers)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Value</td>
+            <td><a href="#">Edit</a></td>
+        </tr>
+    }
+    </tbody>
+</table> *@
+<div class="grid-list">
+    <div class="grid-row grid-head">
+        <div>Name</div>
+        <div>Value</div>
+        <div></div>
+    </div>
+
+    @foreach (var item in Model.PlayNumbers)
+    {
+        <div class="grid-row">
+            <div>@item.Name</div>
+            <div>@item.Value</div>
+            <div><a href="#">Edit</a></div>
+        </div>
+    }
+</div>
+

@@ -7,6 +7,14 @@
     <UserSecretsId>aspnet-Website-0e4168f4-c0ac-4817-b45d-20882725cdd6</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU1901</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;NU1901</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="ModelsFromPowerTools\**" />
     <Content Remove="ModelsFromPowerTools\**" />
@@ -51,7 +59,6 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Pages\Data\PlayNumbers\" />
-    <Folder Include="Pages\Devel\" />
     <Folder Include="Pages\Private\GroupsPlay\" />
     <Folder Include="Pages\Public\" />
     <Folder Include="Services\" />
