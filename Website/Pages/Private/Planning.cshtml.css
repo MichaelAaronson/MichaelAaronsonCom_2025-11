@@ -13,3 +13,44 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+/* --- Stage 2: card styling + status rail --- */
+
+.step-list {
+    gap: 0.5rem; /* space between the row-cards */
+}
+
+.step-head {
+    padding: 0 0.75rem;
+    border-left: 4px solid transparent; /* match the row's rail so labels line up */
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+.step-row {
+    padding: 0.6rem 0.75rem;
+    background: var(--bs-body-bg, #fff);
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-left-width: 4px; /* the status rail */
+    border-radius: 0.5rem;
+}
+
+.step-row--active {
+    border-left-color: var(--bs-primary);
+}
+
+.step-row--deferred {
+    border-left-color: var(--bs-secondary);
+}
+
+.step-row--complete {
+    border-left-color: var(--bs-success);
+    opacity: 0.65; /* done work recedes */
+}
+
+.cell-action {
+    display: flex;
+    justify-content: center;
+}
