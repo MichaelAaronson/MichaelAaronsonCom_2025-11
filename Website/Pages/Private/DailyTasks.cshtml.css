@@ -1,0 +1,100 @@
+/* CSS for Daily Tasks view */
+.step-list {
+    container-type: inline-size;
+    container-name: steplist;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* space between the row-cards */
+}
+
+.step-head,
+.step-row {
+    display: grid;
+    grid-template-columns: 2.5rem 3rem 5rem 10rem 6.5rem 1.5fr 1fr;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* --- Stage 2: card styling + status rail --- */
+
+.step-head {
+    padding: 0 0.75rem;
+    border-left: 4px solid transparent; /* match the row's rail so labels line up */
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+.step-row {
+    padding: 0.6rem 0.75rem;
+    background: var(--bs-body-bg, #fff);
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-left-width: 4px; /* the status rail */
+    border-left-color: var(--bs-primary); /* everything here is active */
+    border-radius: 0.5rem;
+}
+
+.step-row--overdue {
+    border-left-color: var(--bs-warning);
+}
+
+.cell-action {
+    display: flex;
+    justify-content: center;
+}
+
+/* --- Stage 3: reflow when the card itself gets narrow --- */
+@container steplist (max-width: 30rem) {
+    .step-head {
+        display: none; /* labels move inline; header strip not needed */
+    }
+
+    .step-row {
+        grid-template-columns: auto auto 1fr;
+        grid-template-areas:
+            "edit toggle priority"
+            "context context context"
+            "start start start"
+            "task task task"
+            "comm comm comm";
+        column-gap: 0.6rem;
+        row-gap: 0.35rem;
+    }
+
+    .step-row > :nth-child(1) {
+        grid-area: edit;
+    }
+    /* edit */
+    .step-row > :nth-child(2) {
+        grid-area: toggle;
+    }
+    /* complete */
+    .step-row > :nth-child(3) {
+        grid-area: priority;
+        justify-self: start;
+    }
+    /* priority */
+    .step-row > :nth-child(4) {
+        grid-area: context;
+    }
+
+    .step-row > :nth-child(5) {
+        grid-area: start;
+    }
+
+    .step-row > :nth-child(6) {
+        grid-area: task;
+    }
+
+    .step-row > :nth-child(7) {
+        grid-area: comm;
+    }
+
+    /* inline labels for the stacked data cells (4-7 only, not the controls) */
+    .step-row > :nth-child(n+4)::before {
+        content: attr(data-label) ": ";
+        font-weight: 600;
+        color: var(--bs-secondary-color, #6c757d);
+    }
+}
