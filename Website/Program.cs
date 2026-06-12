@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Website.Data;
 using Microsoft.Extensions.DependencyInjection;
+using Website.Api;
+using Website.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,5 +48,6 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+app.MapPlanningApi();
 
 app.Run();
